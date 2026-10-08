@@ -5,7 +5,7 @@ Sources : CM Homéostasie, Biologie cellulaire, Fondamentaux en biochimie, Héma
 
 > Légende : 🔑 = à connaître absolument · ⚠️ = piège classique · 🩺 = lien avec le soin infirmier · 🔢 = valeur normale à apprendre par cœur
 >
-> Les schémas des diaporamas (cascade de coagulation, tableau de compatibilité transfusionnelle) n'étaient pas lisibles dans le texte : ces deux points sont reconstitués à partir de ce qui est écrit dans le cours et des connaissances standard (signalé par 📌).
+> Les schémas du cours sont refaits en texte dans la partie **9. SCHÉMAS**. Le schéma de compatibilité transfusionnelle a été vérifié sur la diapositive. La cascade de coagulation est une vidéo dans le cours : elle est résumée d'après le texte et les connaissances standard (📌).
 
 ---
 
@@ -18,6 +18,7 @@ Sources : CM Homéostasie, Biologie cellulaire, Fondamentaux en biochimie, Héma
 6. Les examens biologiques
 7. Fiches de synthèse + tableau des normes
 8. Questions types d'évaluation
+9. Schémas
 
 ---
 
@@ -459,6 +460,7 @@ Fibrine → CAILLOT
 
 - Définis par des **glycoprotéines (antigènes)** à la surface des **globules rouges**. 36 systèmes connus ; **2 principaux : ABO et Rhésus**.
 - On parle d'« antigène » car on détermine le groupe grâce à l'**anticorps** qui le reconnaît.
+- **Détermination du groupe** : par **agglutination** entre les antigènes des hématies et les anticorps correspondants. **Si aucune agglutination → groupe O.** Il existe 4 groupes (phénotypes) : A, B, AB, O.
 
 ## Système ABO 🔑
 Anticorps **naturels** (formés spontanément, circulent dans le plasma).
@@ -476,7 +478,7 @@ Anticorps **naturels** (formés spontanément, circulent dans le plasma).
 - Si des GR D+ sont introduits chez une personne Rh− → synthèse d'**anticorps irréguliers anti-D** (anticorps **immuns**, réaction contre le « non-soi »). Peut arriver : **transfusion** ou **grossesse (mère Rh−, enfant Rh+)**.
 - **Règle** : on peut transfuser du sang **Rh− à un receveur Rh+**, **pas l'inverse** (risque d'**accident transfusionnel** : réponse immunitaire, **hémolyse brutale et massive**).
 
-## Compatibilité transfusionnelle (globules rouges) 📌
+## Compatibilité transfusionnelle (globules rouges) (schéma du cours : O → A, B, AB ; A → AB ; B → AB)
 | Receveur | Peut recevoir des GR de |
 |---|---|
 | **O** | O |
@@ -710,6 +712,211 @@ Le cours cite les examens que l'infirmier diplômé d'État peut **prescrire ou 
 18. **Interpréter : Na⁺ 128 mmol/L, K⁺ 5,8 mmol/L (garrot posé longtemps).** → Hyponatrémie ; hyperkaliémie possiblement fausse (hémolyse) → refaire le prélèvement.
 19. **Interpréter : INR = 6 chez un patient sous AVK.** → Surdosage, risque hémorragique important (INR > 5) → alerter le médecin, surveiller les signes de saignement.
 20. **HbA1c de 9 %.** → Diabète déséquilibré sur les 3 derniers mois.
+
+---
+
+# 9. SCHÉMAS
+
+## 9.1 Boucle d'homéostasie
+```
+        VARIATION (ex. TA qui baisse)
+              │
+              ▼
+   ┌────────────────────┐
+   │      CAPTEUR       │  détecte
+   └─────────┬──────────┘
+             ▼
+   ┌────────────────────┐
+   │ CENTRE INTÉGRATEUR │  analyse, décide
+   └─────────┬──────────┘
+             ▼
+   ┌────────────────────┐
+   │     EFFECTEUR      │  corrige (FC ↑, vasoconstriction...)
+   └─────────┬──────────┘
+             ▼
+   retour à la valeur de base
+```
+
+## 9.2 Répartition de l'eau (≈ 70 % du poids du corps)
+```
+EAU DE L'ORGANISME
+├── INTRACELLULAIRE  ≈ 70 %
+└── EXTRACELLULAIRE  ≈ 30 % = MILIEU INTÉRIEUR
+      ├── plasma (sang)           ≈ 5 %
+      ├── lymphe interstitielle   ≈ 25 %
+      └── lymphe canalisée
+```
+
+## 9.3 Tonicité (globule rouge)
+```
+ ISOTONIQUE         HYPERTONIQUE            HYPOTONIQUE
+ (plasma = GR)      (plasma + concentré)    (plasma - concentré)
+
+   ( GR )            ( GR )  ← H2O sortie    ( GR ) → H2O entrée
+ eau ⇄ eau          GR se RÉTRACTE           GR GONFLE → LYSE
+```
+
+## 9.4 Transports membranaires
+```
+ milieu EXTRA (+ concentré)
+ ─────────────────────────────────  membrane plasmique
+ milieu INTRA (- concentré)
+
+ Diffusion simple  : ──────► à travers les lipides (O2, CO2, H2O, urée)   sans énergie
+ Diffusion facilitée: ─►[protéine]─► (glucose, ions)                       sans énergie
+ Transport ACTIF   : ◄─[protéine + ATP]─ CONTRE le gradient (pompe Na/K)
+
+ Pompe Na/K ATPase :  3 Na+ SORTENT  /  2 K+ ENTRENT   (ATP consommé)
+ Exocytose : vésicule ──► fusionne avec la membrane ──► contenu à l'extérieur
+ Endocytose: membrane ──► s'invagine ──► englobe la particule
+```
+(La stoechiométrie 3 Na⁺/2 K⁺ est un complément, non détaillé dans le cours.)
+
+## 9.5 La cellule eucaryote
+```
+┌───────────────── MEMBRANE PLASMIQUE ─────────────────┐
+│  CYTOPLASME (cytosol + cytosquelette)                │
+│   ┌─ NOYAU ─────────┐   REG (ribosomes) → protéines  │
+│   │ chromatine (ADN)│   REL → lipides, détox         │
+│   │ nucléole        │   GOLGI → trie/adresse         │
+│   │ pores nucléaires│   LYSOSOMES → digestion        │
+│   └─────────────────┘   MITOCHONDRIES → ATP          │
+│   CENTROSOME (2 centrioles) → division               │
+└──────────────────────────────────────────────────────┘
+```
+
+## 9.6 Chaîne de fabrication d'une protéine
+```
+ADN ──transcription (noyau)──► ARN ──sort par un pore──► RIBOSOME ──traduction──► PROTÉINE
+                                                          (libre ou sur le REG)
+PROTÉINE (REG) ──► GOLGI (modifie/adresse) ──► extérieur / membrane / lysosome
+```
+
+## 9.7 Mitose et méiose
+```
+MITOSE : 1 cellule mère (2n) ──P→M→A→T──► 2 cellules identiques (2n)
+
+MÉIOSE : 1 cellule mère (2n)
+            │ 1re division (réduit le nb de chromosomes)
+            ▼
+        2 cellules (n)
+            │ 2e division (comme une mitose)
+            ▼
+        4 gamètes (n)
+```
+
+## 9.8 Cycle cellulaire
+```
+ INTERPHASE (croissance, réplication de l'ADN) ──► MITOSE (division) ──► 2 cellules-filles
+        ▲                                                                       │
+        └───────────────────────────────────────────────────────────────────────┘
+```
+
+## 9.9 Hématopoïèse
+```
+                 CELLULE SOUCHE MULTIPOTENTE (moelle osseuse rouge)
+                    │                                  │
+         progéniteur MYÉLOÏDE                  progéniteur LYMPHOÏDE
+        ┌─────┬───────┴──────┐                          │
+ proérythroblaste  mégacaryoblaste  myéloblaste     lymphoblaste
+        │               │              │                 │
+  (réticulocyte)        │              │                 │
+   ÉRYTHROCYTES   THROMBOCYTES   polynucléaires,    LYMPHOCYTES
+  (érythropoïèse) (thrombopoïèse)  monocytes (leucopoïèse)
+```
+
+## 9.10 Composition du sang
+```
+SANG ≈ 5 L
+├── PLASMA (≈ 55-60 %) : 90 % eau + protéines (albumine, fibrinogène, Ig) + ions...
+└── ÉLÉMENTS FIGURÉS (≈ 40-45 %)
+      ├── érythrocytes (GR)  4-6 M/mm³
+      ├── leucocytes (GB)    4 000-10 000/mm³
+      │     ├── polynucléaires : neutrophiles, éosinophiles, basophiles
+      │     └── mononucléaires : lymphocytes, monocytes
+      └── thrombocytes       150 000-450 000/mm³
+
+Sérum = plasma - fibrinogène - facteurs de coagulation
+```
+
+## 9.11 Hémoglobine et gaz
+```
+POUMONS (hématose)           TISSUS
+ Hb + O2 ─────────────────►  Hb libère O2
+ Hb ◄───────────── CO2 ◄───  Hb ramène le CO2
+ (1 Hb = 4 hèmes = 4 Fe = 4 O2 max)
+```
+
+## 9.12 Les 3 temps de l'hémostase
+```
+LÉSION D'UN VAISSEAU
+   │
+   ▼
+① HÉMOSTASE PRIMAIRE (3-5 min)
+   vasoconstriction → adhésion plaquettes (facteur de Willebrand)
+   → sécrétion → agrégation (fibrinogène) → CLOU PLAQUETTAIRE (thrombus blanc)
+   │
+   ▼
+② HÉMOSTASE SECONDAIRE = COAGULATION (Ca2+, vit. K, facteurs plaquettaires)
+   cascade → fibrine → CAILLOT (thrombus rouge)
+   │
+   ▼
+③ FIBRINOLYSE
+   plasminogène ──(tPA)──► PLASMINE ──► dégrade la fibrine ──► D-dimères
+```
+
+## 9.13 Cascade de coagulation (version simplifiée) 📌
+```
+ Voie ENDOGÈNE (intrinsèque / cellulaire)      Voie EXOGÈNE (extrinsèque / tissulaire)
+          (facteur VIII...)                              │
+                   └──────────────┬──────────────────────┘
+                                  ▼
+                           FACTEUR X activé (Xa)
+                                  │
+              prothrombine (II) ──► THROMBINE (IIa)
+                                  │
+              fibrinogène (soluble) ──► FIBRINE (insoluble) ──► CAILLOT
+
+ Inhibiteur : ANTITHROMBINE (+ héparine) → bloque thrombine et Xa
+ Surveillance : exogène → TP/INR ; endogène → TCA
+ Cibles des traitements : AVK (vit. K) → TP/INR ; héparine → TCA ; HBPM/AOD → anti-Xa
+```
+(Association voie exogène ↔ TP/INR et endogène ↔ TCA : connaissance standard, utile pour comprendre les examens.)
+
+## 9.14 Compatibilité ABO (globules rouges) — schéma du cours
+```
+            O
+        ┌───┼───┐
+        ▼   ▼   ▼
+        A   │   B
+        └─┐ │ ┌─┘
+          ▼ ▼ ▼
+            AB
+(flèche = « peut donner à ») : O donneur universel, AB receveur universel
+```
+
+## 9.15 Agglutination (détermination du groupe)
+```
+ Hématies + sérum-test anti-A / anti-B
+   antigène présent + anticorps correspondant ──► AGGLUTINATION (test positif)
+   pas de rencontre                           ──► pas d'agglutination (test négatif)
+ Aucune agglutination avec anti-A et anti-B ──► groupe O
+```
+
+## 9.16 Rhésus
+```
+ Mère Rh-  +  enfant Rh+ (antigène D)  ──►  fabrication d'anticorps anti-D (immuns)
+ Receveur Rh- + sang Rh+               ──►  anti-D ──► risque d'accident transfusionnel
+ Donneur Rh- ──► receveur Rh+  : OK        Donneur Rh+ ──► receveur Rh- : INTERDIT
+```
+
+## 9.17 Choix du tube / examen (rappel visuel)
+```
+ NFS            → tube VIOLET (EDTA)
+ Ionogramme     → tube VERT (héparine)
+ Hémocultures   → flacon BLEU (aérobie) PUIS flacon VIOLET (anaérobie)
+ Gaz du sang    → ponction ARTÉRIELLE (radiale), analyse < 15 min
+```
 
 ---
 
