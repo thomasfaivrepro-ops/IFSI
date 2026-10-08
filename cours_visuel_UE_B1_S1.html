@@ -1,0 +1,812 @@
+<title>Fonctionnement du corps humain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* Concept : manuel de révision, une colonne de lecture, un schéma par notion clé, chapitres ancrés en barre collante */
+:root{
+  --bg:#f2f5f7; --surface:#ffffff; --fg:#13222e; --muted:#51657a; --line:#d3dde5;
+  --accent:#0d7a85; --soft:#dff1f3;
+  --blood:#c42f40; --soft-blood:#fbe5e8;
+  --amber:#a8660b; --soft-amber:#fbefd3;
+  --plasma:#f1d273; --ok:#2f8f5b; --blue:#3a6fd0;
+  --display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --body:'Source Sans 3','Segoe UI',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0d1821; --surface:#142431; --fg:#e5eef4; --muted:#9db1c1; --line:#2a3f4f;
+  --accent:#43c3cf; --soft:#10373d; --blood:#ff7d8b; --soft-blood:#3b1b22;
+  --amber:#f0b94a; --soft-amber:#3a2c10; --plasma:#d9b44f; --ok:#5ccf90; --blue:#7ea4f2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0d1821; --surface:#142431; --fg:#e5eef4; --muted:#9db1c1; --line:#2a3f4f;
+  --accent:#43c3cf; --soft:#10373d; --blood:#ff7d8b; --soft-blood:#3b1b22;
+  --amber:#f0b94a; --soft-amber:#3a2c10; --plasma:#d9b44f; --ok:#5ccf90; --blue:#7ea4f2; color-scheme:dark}
+
+body{background:var(--bg);color:var(--fg);font:400 17px/1.6 var(--body);padding-inline:16px;padding-block:0 64px}
+*{box-sizing:border-box}
+.wrap{max-width:900px;margin-inline:auto}
+h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.7rem,4.5vw,2.3rem);font-weight:700}
+h3{font-size:1.25rem;font-weight:700;margin-top:2rem;margin-bottom:.4rem}
+p{margin:.5rem 0}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+header.top{padding-block:40px 24px}
+.eyebrow{font:500 .8rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:clamp(2.2rem,7vw,3.6rem);font-weight:700;margin-top:.4rem}
+.sub{color:var(--muted);max-width:60ch}
+
+nav.chap{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-inline:-16px;padding:8px 16px;display:flex;gap:6px;overflow-x:auto}
+nav.chap a{flex:none;text-decoration:none;color:var(--fg);font:600 .9rem var(--body);padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
+nav.chap a:hover{border-color:var(--accent);color:var(--accent)}
+
+section.ch{padding-block:48px 8px;scroll-margin-top:56px}
+.num{font:500 .85rem var(--mono);color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+.lead{color:var(--muted);margin-top:.5rem}
+
+.key,.pit,.care,.note{border-radius:10px;padding:12px 16px;margin-block:14px}
+.key{background:var(--soft);border-left:4px solid var(--accent)}
+.pit{background:var(--soft-amber);border-left:4px solid var(--amber)}
+.care{background:var(--soft-blood);border-left:4px solid var(--blood)}
+.note{background:var(--surface);border:1px solid var(--line);color:var(--muted);font-size:.95rem}
+.key b.t,.pit b.t,.care b.t{display:block;font:500 .75rem var(--mono);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.key b.t{color:var(--accent)}.pit b.t{color:var(--amber)}.care b.t{color:var(--blood)}
+
+figure{margin:22px 0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 12px 12px}
+figcaption{font-size:.92rem;color:var(--muted);margin-top:8px;padding-inline:4px}
+.scroll{overflow-x:auto}
+figure svg{display:block;width:100%;min-width:600px;height:auto}
+.scroll>table{min-width:560px}
+
+table{border-collapse:collapse;width:100%;font-size:.95rem;background:var(--surface)}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{font:500 .75rem var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+td.n,.n{font-family:var(--mono);font-weight:500;font-size:.88rem;color:var(--accent);white-space:nowrap}
+.tw{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-block:14px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-block:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
+.card h4{margin:0 0 4px;font:700 1.02rem var(--display)}
+.card p{margin:0;font-size:.95rem;color:var(--muted)}
+.tag{display:inline-block;font:500 .72rem var(--mono);padding:2px 8px;border-radius:999px;margin-right:4px;vertical-align:middle}
+.tag.t1{background:var(--soft);color:var(--accent)}.tag.t2{background:var(--soft-blood);color:var(--blood)}.tag.t3{background:var(--soft-amber);color:var(--amber)}
+
+ul{padding-left:1.2rem;margin:.4rem 0}li{margin:.2rem 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-block:10px}
+.chip{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.92rem}
+.sw{width:16px;height:16px;border-radius:4px;border:1px solid rgba(0,0,0,.25);flex:none}
+
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-block:8px}
+summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:6px}
+details p{color:var(--muted);margin:0}
+
+/* SVG */
+svg text{fill:var(--fg);font:600 13px var(--body)}
+svg .m{fill:var(--muted);font-weight:400;font-size:11.5px}
+svg .sm{font-size:11px}
+svg .big{font:700 15px var(--display)}
+svg .mono{font:500 11px var(--mono);fill:var(--muted)}
+svg .w{fill:#fff}
+.box{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.ba{fill:var(--soft);stroke:var(--accent);stroke-width:1.5}
+.bb{fill:var(--soft-blood);stroke:var(--blood);stroke-width:1.5}
+.bc{fill:var(--soft-amber);stroke:var(--amber);stroke-width:1.5}
+.ln{stroke:var(--fg);stroke-width:1.7;fill:none}
+.lna{stroke:var(--accent);stroke-width:2;fill:none}
+.lnb{stroke:var(--blood);stroke-width:2;fill:none}
+.dash{stroke-dasharray:5 4}
+.ah{fill:var(--fg)}.aha{fill:var(--accent)}.ahb{fill:var(--blood)}
+.fa{fill:var(--accent)}.fb{fill:var(--blood)}.fc{fill:var(--amber)}.fp{fill:var(--plasma)}
+.dot{fill:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+footer{margin-top:56px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);padding-top:16px}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">UE B1 S1 · IFSI 1ʳᵉ année · promotion 2026-2029</div>
+  <h1>Fonctionnement du corps humain</h1>
+  <p class="sub">Cours de révision en six chapitres, construit à partir des supports de l’UE : introduction, homéostasie, biochimie, biologie cellulaire, hématologie et examens biologiques. Chaque notion clé a son schéma.</p>
+</header>
+
+<nav class="chap" aria-label="Chapitres">
+  <a href="#intro">0 · Introduction</a>
+  <a href="#homeo">1 · Homéostasie</a>
+  <a href="#biochimie">2 · Biochimie</a>
+  <a href="#cellule">3 · Cellule</a>
+  <a href="#hemato">4 · Hématologie</a>
+  <a href="#examens">5 · Examens</a>
+  <a href="#revision">6 · Révision</a>
+</nav>
+
+<!-- ============ 0 INTRO ============ -->
+<section class="ch" id="intro">
+  <div class="num">Chapitre 0</div>
+  <h2>De la chimie à la cellule</h2>
+  <p class="lead">Question du cours : comment passe-t-on de quelques notions de chimie à la compréhension d’une cellule humaine ?</p>
+
+  <h3>Le fil rouge à connaître</h3>
+  <figure>
+    <div class="scroll"><svg viewBox="0 0 760 175" role="img" aria-label="Niveaux d'organisation du plus petit au plus grand : atome, molécule, macromolécule, cellule, tissu, système, organisme, rattachés à la chimie, la biologie cellulaire et l'histologie">
+      <defs><marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+      <g font-size="11.5">
+        <rect class="ba" x="10" y="25" width="96" height="50" rx="10"/><text x="58" y="55" text-anchor="middle" style="font-size:12px">Atome</text>
+        <rect class="ba" x="117" y="25" width="96" height="50" rx="10"/><text x="165" y="55" text-anchor="middle" style="font-size:12px">Molécule</text>
+        <rect class="ba" x="224" y="25" width="96" height="50" rx="10"/><text x="272" y="55" text-anchor="middle" style="font-size:11.5px">Macromolécule</text>
+        <rect class="bb" x="331" y="25" width="96" height="50" rx="10"/><text x="379" y="55" text-anchor="middle" style="font-size:12px">Cellule</text>
+        <rect class="bc" x="438" y="25" width="96" height="50" rx="10"/><text x="486" y="55" text-anchor="middle" style="font-size:12px">Tissu</text>
+        <rect class="bc" x="545" y="25" width="96" height="50" rx="10"/><text x="593" y="55" text-anchor="middle" style="font-size:12px">Système</text>
+        <rect class="bc" x="652" y="25" width="96" height="50" rx="10"/><text x="700" y="55" text-anchor="middle" style="font-size:12px">Organisme</text>
+      </g>
+      <g marker-end="url(#a1)" class="ln"><path d="M106 50H115"/><path d="M213 50H222"/><path d="M320 50H329"/><path d="M427 50H436"/><path d="M534 50H543"/><path d="M641 50H650"/></g>
+      <path class="lna" d="M10 92V100H320V92"/><text x="165" y="118" text-anchor="middle" class="mono" style="fill:var(--accent)">CHIMIE</text>
+      <path class="lnb" d="M331 92V100H427V92"/><text x="379" y="118" text-anchor="middle" class="mono" style="fill:var(--blood)">BIOLOGIE</text><text x="379" y="131" text-anchor="middle" class="mono" style="fill:var(--blood)">CELLULAIRE</text>
+      <path d="M438 92V100H748V92" class="ln" style="stroke:var(--amber);stroke-width:2"/><text x="593" y="118" text-anchor="middle" class="mono" style="fill:var(--amber)">HISTOLOGIE</text>
+      <path class="ln" marker-end="url(#a1)" d="M10 158H750"/><text x="10" y="150" class="m">du plus petit</text><text x="750" y="150" text-anchor="end" class="m">au plus grand</text>
+    </svg></div>
+    <figcaption>Chaque niveau est fait d’éléments du niveau précédent. Chimie : atomes et molécules. Biologie cellulaire : la cellule. Histologie : les cellules regroupées en tissus.</figcaption>
+  </figure>
+
+  <div class="grid">
+    <div class="card"><h4><span class="tag t1">chimie</span></h4><p>Science qui étudie la composition de la matière.</p></div>
+    <div class="card"><h4><span class="tag t2">biologie</span></h4><p>Science qui étudie la vie et les organismes vivants.</p></div>
+    <div class="card"><h4><span class="tag t3">histologie</span></h4><p>Science qui étudie la composition, le fonctionnement et l’organisation des cellules, regroupées en tissus.</p></div>
+  </div>
+  <p>À l’IFSI, la biologie regroupe surtout la biochimie, la biologie cellulaire, l’histologie, la physiologie et l’anatomie humaines, et la génétique humaine.</p>
+
+  <h3>Qu’est-ce qu’un être vivant ?</h3>
+  <div class="key"><b class="t">À retenir</b>Trois critères : <b>vie autonome</b>, <b>reproduction</b>, <b>information génétique et métabolisme</b>.</div>
+  <ul>
+    <li>La vie est apparue sur Terre il y a 3,5 à 4 milliards d’années. Ancêtre commun : <b>LUCA</b> (Last Universal Common Ancestor).</li>
+    <li><b>Procaryotes</b> : unicellulaires, sans noyau (bactéries). <b>Eucaryotes</b> : cellules avec noyau, unicellulaires ou pluricellulaires (champignons, végétaux, animaux).</li>
+  </ul>
+  <details><summary>Exercice du cours : vivant ou non vivant ? (ma réponse, d’après les trois critères)</summary>
+    <p><b>Vivants</b> : nénuphar, globule blanc, staphylocoque doré, levures, escargot. <b>Non vivants</b> : carbone, eau, terre, huile, éclairs, pain cuit, ongles (kératine, cellules mortes). <b>Virus (VIH, Covid)</b> : pas de vie autonome, ils ont besoin d’une cellule hôte pour se reproduire. Le cours ne donne pas la correction, vérifiez avec votre formateur.</p>
+  </details>
+
+  <h3>Chimie : de l’atome à la molécule</h3>
+  <p>L’<b>atome</b> est l’unité de base de la matière. Il est neutre : le <b>noyau</b> est positif, les <b>électrons</b> sont négatifs. S’il perd ou gagne un électron, il devient un <b>ion</b>.</p>
+  <figure>
+    <div class="scroll"><svg viewBox="0 0 720 235" role="img" aria-label="Atome neutre, cation avec un électron en moins, anion avec un électron en plus">
+      <g class="dash lna" style="fill:none"><circle cx="120" cy="110" r="55"/><circle cx="360" cy="110" r="55"/><circle cx="600" cy="110" r="55"/></g>
+      <g><circle class="fb" cx="120" cy="110" r="17"/><circle class="fb" cx="360" cy="110" r="17"/><circle class="fb" cx="600" cy="110" r="17"/>
+      <text class="w" x="120" y="115" text-anchor="middle" style="font-size:16px">+</text><text class="w" x="360" y="115" text-anchor="middle" style="font-size:16px">+</text><text class="w" x="600" y="115" text-anchor="middle" style="font-size:16px">+</text></g>
+      <g class="fa">
+        <circle cx="120" cy="55" r="8"/><circle cx="167.6" cy="137.5" r="8"/><circle cx="72.4" cy="137.5" r="8"/>
+        <circle cx="360" cy="55" r="8"/><circle cx="360" cy="165" r="8"/>
+        <circle cx="600" cy="55" r="8"/><circle cx="655" cy="110" r="8"/><circle cx="600" cy="165" r="8"/><circle cx="545" cy="110" r="8"/>
+      </g>
+      <g class="w" style="font-size:12px"><text x="120" y="59" text-anchor="middle">−</text><text x="167.6" y="141.5" text-anchor="middle">−</text><text x="72.4" y="141.5" text-anchor="middle">−</text>
+        <text x="360" y="59" text-anchor="middle">−</text><text x="360" y="169" text-anchor="middle">−</text>
+        <text x="600" y="59" text-anchor="middle">−</text><text x="655" y="114" text-anchor="middle">−</text><text x="600" y="169" text-anchor="middle">−</text><text x="545" y="114" text-anchor="middle">−</text></g>
+      <text x="120" y="22" text-anchor="middle" class="big">Atome neutre</text><text x="360" y="22" text-anchor="middle" class="big">Cation</text><text x="600" y="22" text-anchor="middle" class="big">Anion</text>
+      <text x="120" y="198" text-anchor="middle" class="m">charges + = charges −</text>
+      <text x="360" y="198" text-anchor="middle" class="m">électron en moins : Na⁺, K⁺</text>
+      <text x="600" y="198" text-anchor="middle" class="m">électron en plus : Cl⁻</text>
+      <text x="360" y="222" text-anchor="middle" class="m">charge positive</text><text x="600" y="222" text-anchor="middle" class="m">charge négative</text>
+    </svg></div>
+    <figcaption>Un ion est un atome qui a perdu ou gagné un électron. Les ions (Na⁺, K⁺, Ca²⁺, Cl⁻) interviennent dans l’influx nerveux, la contraction musculaire, l’équilibre hydrique et acido-basique.</figcaption>
+  </figure>
+  <ul>
+    <li><b>Molécules</b> : NaCl (Na⁺ + Cl⁻), H₂O (2 H + 1 O), CO₂ (1 C + 2 O). <b>Organiques</b> : contiennent du carbone. <b>Inorganiques</b> : sans carbone.</li>
+    <li><b>Solvant</b> : substance qui dissout (l’eau). <b>Soluté</b> : substance dissoute (médicament en poudre, sirop). Soluté + eau = <b>solution aqueuse</b>. Il existe aussi des solutions alcooliques (Bétadine® alcoolique) et huileuses (Clopixol® injectable).</li>
+    <li><b>Macromolécules</b> : assemblages complexes de molécules, jamais au hasard. Pourquoi l’atome compte pour l’infirmier : structure d’un médicament et absorption, ions, fonctionnement des cellules, examens prescrits, rayonnements et radioprotection.</li>
+  </ul>
+
+  <h3>Le pH</h3>
+  <p>Valeur sans dimension (potentiel Hydrogène) de 0 à 14 qui mesure l’acidité d’une solution. Chaque liquide de l’organisme doit rester dans sa zone de pH pour que les cellules fonctionnent : c’est de l’homéostasie.</p>
+  <figure>
+    <div class="scroll"><svg viewBox="0 0 720 235" role="img" aria-label="Échelle de pH de 0 à 14 avec les zones de l'estomac, de l'urine et du sang">
+      <defs><linearGradient id="phg" x1="0" x2="1"><stop offset="0" stop-color="#d9463f"/><stop offset=".5" stop-color="#4fae7b"/><stop offset="1" stop-color="#3d6fd6"/></linearGradient></defs>
+      <rect x="30" y="90" width="660" height="26" rx="6" fill="url(#phg)"/>
+      <g class="mono" style="text-anchor:middle">
+        <text x="30" y="136">0</text><text x="77" y="136">1</text><text x="124" y="136">2</text><text x="171" y="136">3</text><text x="219" y="136">4</text><text x="266" y="136">5</text><text x="313" y="136">6</text><text x="360" y="136">7</text><text x="407" y="136">8</text><text x="454" y="136">9</text><text x="501" y="136">10</text><text x="549" y="136">11</text><text x="596" y="136">12</text><text x="643" y="136">13</text><text x="690" y="136">14</text></g>
+      <path class="ln" d="M379 90V62"/><circle class="fb" cx="379" cy="62" r="4"/><text x="388" y="58" class="big" style="font-size:13px">Sang : 7,35 – 7,45</text><text x="388" y="73" class="m">légèrement alcalin</text>
+      <path class="lna" d="M77 152V160H171V152"/><text x="124" y="178" text-anchor="middle">Estomac : 1 – 3</text><text x="124" y="193" text-anchor="middle" class="m">très acide</text>
+      <path class="lna" d="M242 152V160H407V152"/><text x="324" y="178" text-anchor="middle">Urine : 4,5 – 8</text><text x="324" y="193" text-anchor="middle" class="m">d’acide à basique</text>
+      <text x="30" y="30" class="mono" style="font-size:12px;fill:#d9463f">ACIDE (pH &lt; 7) · vinaigre</text>
+      <text x="360" y="222" text-anchor="middle" class="mono" style="font-size:12px;fill:var(--ok)">NEUTRE (pH = 7) · eau</text>
+      <text x="690" y="30" text-anchor="end" class="mono" style="font-size:12px;fill:var(--blue)">BASIQUE (pH &gt; 7) · soude, ammoniac</text>
+    </svg></div>
+    <figcaption>Le sang est maintenu entre 7,35 et 7,45. Un pH sanguin hors de cette zone est un signal d’alerte pour l’infirmier.</figcaption>
+  </figure>
+
+  <h3>La chimie du vivant : 4 familles organiques</h3>
+  <p>Les 4 atomes les plus présents dans l’organisme : <b>O, C, H, N</b>.</p>
+  <div class="grid">
+    <div class="card"><h4>Glucides</h4><p>« Sucres ». Lents (féculents, céréales, pain) ou rapides (fruits, lait, sucre). Dégradés en <b>glucose</b>, principale source d’énergie (globules rouges et neurones surtout).</p></div>
+    <div class="card"><h4>Lipides</h4><p>« Graisses », 20 % du poids du corps, insolubles dans l’eau. Réserve d’énergie, précurseurs d’hormones et de vitamines. Acides gras essentiels : oméga-3 et 6.</p></div>
+    <div class="card"><h4>Protides</h4><p>50 % de la matière organique. Dégradés en <b>acides aminés</b> (20, dont 8 essentiels). Hormones, enzymes, anticorps, récepteurs, hémoglobine, albumine.</p></div>
+    <div class="card"><h4>Acides nucléiques</h4><p>ADN, ARN : information génétique. ATP : stockage de l’énergie cellulaire. Unité de base : le nucléotide.</p></div>
+  </div>
+  <div class="grid">
+    <div class="card"><h4><span class="tag t2">catabolisme</span></h4><p>Réactions qui <b>dégradent</b> les macromolécules en petits éléments (lipides coupés en acides gras).</p></div>
+    <div class="card"><h4><span class="tag t1">anabolisme</span></h4><p>Réactions qui <b>fabriquent</b> de plus grosses molécules.</p></div>
+  </div>
+  <p><b>Métabolisme</b> = anabolisme + catabolisme. Ces réactions utilisent des <b>enzymes</b> (protéines qui accélèrent les réactions biochimiques).</p>
+
+  <h3>Les tissus (histologie)</h3>
+  <p>Un tissu est un ensemble de cellules qui assurent une même fonction. Il existe 4 tissus primaires.</p>
+  <figure>
+    <div class="scroll"><svg viewBox="0 0 760 230" role="img" aria-label="Les quatre tissus : épithélial, conjonctif, musculaire, nerveux, avec leur fonction principale">
+      <g><rect class="ba" x="8" y="10" width="176" height="150" rx="12"/><rect class="bc" x="196" y="10" width="176" height="150" rx="12"/><rect class="bb" x="384" y="10" width="176" height="150" rx="12"/><rect class="box" x="572" y="10" width="180" height="150" rx="12" style="stroke:var(--blue)"/></g>
+      <g class="big" text-anchor="middle"><text x="96" y="36">Épithélial</text><text x="284" y="36">Conjonctif</text><text x="472" y="36">Musculaire</text><text x="662" y="36">Nerveux</text></g>
+      <g text-anchor="middle" class="m"><text x="96" y="58">revêtement (peau,</text><text x="96" y="72">muqueuses) et</text><text x="96" y="86">glandes (sécrétion)</text>
+        <text x="284" y="58">soutien, défense,</text><text x="284" y="72">rôle nourricier</text><text x="284" y="86">(sang inclus)</text>
+        <text x="472" y="58">production de</text><text x="472" y="72">mouvement</text>
+        <text x="662" y="58">transmission de</text><text x="662" y="72">l’influx nerveux</text></g>
+      <!-- épithélium -->
+      <g class="fa"><rect x="34" y="104" width="22" height="30" rx="3"/><rect x="58" y="104" width="22" height="30" rx="3"/><rect x="82" y="104" width="22" height="30" rx="3"/><rect x="106" y="104" width="22" height="30" rx="3"/><rect x="130" y="104" width="22" height="30" rx="3"/></g>
+      <!-- conjonctif -->
+      <g class="ln" style="stroke:var(--amber)"><path d="M214 130 Q250 110 290 132 T354 118"/><path d="M214 146 Q256 128 300 148 T354 138"/></g><g class="fc"><circle cx="246" cy="132" r="8"/><circle cx="318" cy="130" r="8"/></g>
+      <!-- muscle -->
+      <g class="fb"><rect x="402" y="108" width="140" height="12" rx="6"/><rect x="402" y="126" width="140" height="12" rx="6"/><rect x="402" y="144" width="140" height="12" rx="6"/></g>
+      <!-- neurone -->
+      <g><circle cx="620" cy="130" r="13" style="fill:var(--blue)"/><path class="ln" style="stroke:var(--blue);stroke-width:2.4" d="M633 130H720M607 124L592 112M607 136L592 150M620 117L618 100"/></g>
+      <g class="m" text-anchor="middle"><text x="96" y="154">cellules jointives</text></g>
+      <text x="380" y="190" text-anchor="middle" class="m">Muscle lisse (involontaire) · strié squelettique (volontaire) · strié cardiaque (involontaire)</text>
+      <text x="380" y="212" text-anchor="middle" class="m">Neurones : excitables · gliocytes : cellules de soutien non excitables</text>
+    </svg></div>
+    <figcaption>Les quatre tissus primaires et leur fonction principale.</figcaption>
+  </figure>
+  <div class="grid">
+    <div class="card"><h4>Épithélial</h4><p>Revêtement (protection) ou glandulaire (sécrétion). Cellules polarisées, renouvellement rapide, communicantes, innervées, <b>avascularisées</b>.</p></div>
+    <div class="card"><h4>Conjonctif</h4><p>Lâche, fibreux, adipeux, cartilagineux, <b>sang</b>. Cellules résidentes, cellules mobiles, fibres protéiques.</p></div>
+    <div class="card"><h4>Musculaire</h4><p>Myocyte : contractile, excitable, allongé, plusieurs noyaux, extensible, élastique. Lisse (parois des organes), strié squelettique, strié cardiaque (myocarde).</p></div>
+    <div class="card"><h4>Nerveux</h4><p>Neurone : réagit à un stimulus mécanique, thermique, chimique, électrique ou psychologique. Les neurones forment des réseaux où circule l’influx nerveux.</p></div>
+  </div>
+
+  <h3>Cas clinique : Kazumi, 19 ans</h3>
+  <div class="care"><b class="t">Situation</b>Fatigue depuis des semaines, règles abondantes depuis des mois, essoufflement dans les escaliers, vertiges, pâleur du visage, des lèvres et de l’intérieur des paupières. Elle mange peu de légumes secs et de moins en moins de viande. Prise de sang prescrite à jeun, le matin.</div>
+  <p><b>Lecture du cas</b> (déduction d’après les autres cours) : saignements abondants et alimentation pauvre en fer → <b>carence martiale</b> → moins d’hémoglobine, moins d’O₂ transporté → pâleur, fatigue, essoufflement, vertiges : tableau d’<b>anémie</b>. Examens attendus : NFS (hémoglobine, hématies), bilan martial (fer, ferritine, transferrine). Conseils : lentilles plus souvent, viande rouge une à deux fois par semaine, surtout pendant les règles.</p>
+</section>
+
+<!-- ============ 1 HOMEOSTASIE ============ -->
+<section class="ch" id="homeo">
+  <div class="num">Chapitre 1</div>
+  <h2>Homéostasie et milieu intérieur</h2>
+  <div class="key"><b class="t">Définition</b><i>homoios</i> = semblable, <i>stasis</i> = état. L’homéostasie est le <b>maintien d’une stabilité du milieu intérieur</b>, malgré les variations internes et externes. Elle vaut de l’organisme entier jusqu’à la cellule.</div>
+
+  <figure>
+    <div class="scroll"><svg viewBox="0 0 720 235" role="img" aria-label="Boucle de régulation : variation, capteur, centre intégrateur, effecteur, retour à la valeur de base">
+      <defs><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+      <rect class="bc" x="10" y="35" width="120" height="58" rx="10"/><text x="70" y="70" text-anchor="middle" class="big" style="font-size:14px">Variation</text>
+      <rect class="ba" x="185" y="35" width="120" height="58" rx="10"/><text x="245" y="62" text-anchor="middle" class="big" style="font-size:14px">Capteur</text><text x="245" y="80" text-anchor="middle" class="m">détecte</text>
+      <rect class="ba" x="360" y="35" width="150" height="58" rx="10"/><text x="435" y="62" text-anchor="middle" class="big" style="font-size:14px">Centre intégrateur</text><text x="435" y="80" text-anchor="middle" class="m">analyse, décide</text>
+      <rect class="ba" x="565" y="35" width="140" height="58" rx="10"/><text x="635" y="62" text-anchor="middle" class="big" style="font-size:14px">Effecteur</text><text x="635" y="80" text-anchor="middle" class="m">corrige</text>
+      <g class="ln" marker-end="url(#a2)"><path d="M130 64H183"/><path d="M305 64H358"/><path d="M510 64H563"/></g>
+      <path class="lna dash" marker-end="url(#a2)" d="M635 93V150H70V97"/>
+      <text x="352" y="143" text-anchor="middle" class="m">retour à la valeur de base</text>
+      <text x="360" y="195" text-anchor="middle">Exemple : TA ↓ → fréquence cardiaque ↑ et vasoconstriction → TA ↑</text>
+      <text x="360" y="216" text-anchor="middle" class="m">mécanisme de compensation</text>
+    </svg></div>
+    <figcaption>Une variation est détectée, analysée, puis corrigée : la valeur revient à sa base.</figcaption>
+  </figure>
+
+  <h3>Milieu intérieur et compartiments</h3>
+  <p>Le corps est composé d’environ <b>70 % d’eau</b>, répartie en deux compartiments qui échangent en permanence.</p>
+  <figure>
+    <div class="scroll"><svg viewBox="0 0 720 200" role="img" aria-label="Répartition de l'eau : 70 pour cent intracellulaire, 25 pour cent lymphe interstitielle, 5 pour cent plasma">
+      <rect class="ba" x="20" y="70" width="476" height="46" rx="6"/><rect class="bc" x="496" y="70" width="170" height="46" rx="0"/><rect class="bb" x="666" y="70" width="34" height="46" rx="6"/>
+      <text x="258" y="98" text-anchor="middle" class="big">Intracellulaire · 70 %</text>
+      <text x="581" y="98" text-anchor="middle" class="big" style="font-size:12px">Lymphe interstitielle · 25 %</text>
+      <path class="ln" d="M496 56V50H700V56"/><text x="700" y="38" text-anchor="end" class="big" style="font-size:14px">Extracellulaire = MILIEU INTÉRIEUR (≈ 30 %)</text>
+      <path class="lnb" d="M683 118V140"/><text x="700" y="156" text-anchor="end">Plasma · 5 %</text>
+      <text x="20" y="160" class="m">+ lymphe canalisée dans le compartiment extracellulaire</text>
+      <text x="20" y="184" class="m">Eau totale ≈ 70 % du poids du corps</text>
+    </svg></div>
+    <figcaption>Le milieu intérieur regroupe tous les liquides extracellulaires : plasma, lymphe interstitielle, lymphe canalisée. Il assure le transport, la protection et le maintien de l’homéostasie.</figcaption>
+  </figure>
+  <p><b>Composition</b> : eau, ions (Na⁺, K⁺, Ca²⁺, Cl⁻), nutriments (glucose), hormones, protéines, déchets (urée). Le plasma contient en plus les cellules sanguines.</p>
+
+  <h3>Osmose et diffusion</h3>
+  <div class="grid">
+    <div class="card"><h4>Osmose</h4><p>Déplacement de l’<b>eau</b> à travers une membrane semi-perméable, de la solution <b>la moins concentrée vers la plus concentrée</b>.</p></div>
+    <div class="card"><h4>Diffusion</h4><p>Déplacement des <b>ions et molécules</b> de la solution <b>la plus concentrée vers la moins concentrée</b>.</p></div>
+  </div>
+  <div class="pit"><b class="t">Piège</b>L’eau va vers le plus concentré, les solutés vont vers le moins concentré.</div>
+
+  <figure>
+    <div class="scroll"><svg viewBox="0 0 720 265" role="img" aria-label="Globule rouge en milieu isotonique, hypertonique et hypotonique">
+      <defs><marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="aha" d="M0 0L10 5L0 10z"/></marker></defs>
+      <rect class="box" x="10" y="32" width="220" height="165" rx="12"/><rect class="box" x="250" y="32" width="220" height="165" rx="12"/><rect class="box" x="490" y="32" width="220" height="165" rx="12"/>
+      <g class="big" text-anchor="middle" style="font-size:14px"><text x="120" y="22">Isotonique</text><text x="360" y="22">Hypertonique</text><text x="600" y="22">Hypotonique</text></g>
+      <circle class="bb" cx="120" cy="115" r="38"/><circle cx="120" cy="115" r="14" style="fill:none;stroke:var(--blood);opacity:.5"/>
+      <circle cx="360" cy="115" r="38" style="fill:none;stroke:var(--blood);stroke-dasharray:4 4"/><circle class="bb" cx="360" cy="115" r="26"/>
+      <circle class="bb" cx="600" cy="115" r="52"/>
+      <g class="lna" marker-end="url(#a3)"><path d="M30 108H68"/><path d="M68 124H30"/><path d="M172 108H210"/><path d="M210 124H172"/><path d="M322 115H270"/><path d="M398 115H450"/><path d="M510 115H538"/><path d="M690 115H662"/></g>
+      <g class="m" text-anchor="middle"><text x="120" y="60">eau ⇄ eau</text><text x="360" y="60">l’eau sort</text><text x="600" y="60">l’eau entre</text></g>
+      <g text-anchor="middle"><text x="120" y="222">taille normale</text><text x="360" y="222">se déshydrate, se rétracte</text><text x="600" y="222">gonfle, risque de lyse</text></g>
+      <g class="m" text-anchor="middle"><text x="120" y="244">plasma = cellule</text><text x="360" y="244">plasma plus concentré</text><text x="600" y="244">plasma moins concentré</text></g>
+    </svg></div>
+    <figcaption>L’eau suit le milieu le plus concentré. D’où le choix des solutés de perfusion et le risque de lyse en milieu hypotonique.</figcaption>
+  </figure>
+
+  <h3>Régulation du pH sanguin (7,35 – 7,45)</h3>
+  <p>Le métabolisme produit du CO₂, donc des ions H⁺ et de l’acidité. Trois correcteurs : le <b>système tampon bicarbonate</b>, la <b>respiration</b> (élimine le CO₂) et les <b>reins</b> (éliminent les H⁺).</p>
+
+  <h3>Deux cas cliniques du cours</h3>
+  <div class="grid">
+    <div class="card"><h4>Vomissements et diarrhées</h4><p>Faiblesse, TA basse, FC élevée. Perturbation : pertes d’eau et d’électrolytes. Réaction : compensation. La FC augmente pour maintenir l’apport sanguin malgré la baisse du volume circulant. Rôle du soignant : rassurer, observer, mesurer, surveiller, appliquer les prescriptions.</p></div>
+    <div class="card"><h4>Mme Happy, 85 ans, canicule</h4><p>Peu de soif, beaucoup de sueur. Le milieu extracellulaire devient plus concentré en sodium, les cellules perdent de l’eau. Corrections : soif, réabsorption rénale d’eau, urines concentrées et moins abondantes. La personne âgée ressent moins la soif.</p></div>
+  </div>
+</section>
+
+<!-- ============ 2 BIOCHIMIE ============ -->
+<section class="ch" id="biochimie">
+  <div class="num">Chapitre 2</div>
+  <h2>Biochimie</h2>
+  <div class="key"><b class="t">Situation d’ancrage</b>M. Asthénie ne mange presque rien et sa plaie ne cicatrise pas. Lien : les aliments apportent <b>l’énergie (ATP)</b> et les <b>matériaux</b> (acides aminés, vitamines, minéraux, eau) dont les <b>cellules</b> ont besoin pour fonctionner, se multiplier et réparer les tissus.</div>
+
+  <h3>Vocabulaire</h3>
+  <div class="grid">
+    <div class="card"><h4>Hydrophobe / hydrophile</h4><p>Évite l’eau / attiré par l’eau. <b>Amphiphile</b> : les deux.</p></div>
+    <div class="card"><h4>Monomère / polymère</h4><p>Brique simple (Lego®) / enchaînement de monomères.</p></div>
+    <div class="card"><h4>Molécule essentielle</h4><p>Non synthétisable : elle doit venir de l’alimentation.</p></div>
+    <div class="card"><h4>Macro / micro-éléments</h4><p>Présents en grande / petite quantité dans l’organisme.</p></div>
+  </div>
+
+  <h3>Les macromolécules organiques</h3>
+  <div class="tw scroll"><table>
+    <tr><th>Famille</th><th>Élément de base</th><th>Rôles</th><th>À retenir</th></tr>
+    <tr><td><b>Glucides</b></td><td>ose (glucose, fructose)</td><td>énergie, soutien</td><td>Holosides : lactose, amidon, glycogène. Hétérosides : nucléotides, digitaline. Digestion : amylase salivaire, puis pancréatique, puis disaccharides, puis oses absorbés.</td></tr>
+    <tr><td><b>Lipides</b></td><td>acide gras</td><td>réserve (1 g = <span class="n">9 kcal</span>), membranes, précurseurs</td><td>20 % du poids du corps, 70 % du tissu nerveux. Saturés : animaux, solides. Insaturés : végétaux, liquides, certains essentiels.</td></tr>
+    <tr><td><b>Protides</b></td><td>acide aminé</td><td>structure, enzymes, anticorps, hormones, transport</td><td>20 AA dont 8 essentiels. Protéine : plus de 50 AA. 50 % de la matière organique.</td></tr>
+    <tr><td><b>Acides nucléiques</b></td><td>nucléotide</td><td>information génétique, énergie (ATP)</td><td>ADN, ARN, ATP.</td></tr>
+  </table></div>
+  <ul>
+    <li><b>Triglycérides</b> : lipides de réserve (tissu adipeux, huiles).</li>
+    <li><b>Cholestérol</b> (stéride) : fluidité des membranes, précurseur des hormones stéroïdiennes, de la vitamine D3 et des acides biliaires. Transporté par les lipoprotéines HDL et LDL.</li>
+    <li><b>Phospholipides</b> : amphiphiles (tête hydrophile, queues d’acides gras hydrophobes), constituent la membrane.</li>
+    <li><b>Vitamines</b> : micronutriments apportés par l’alimentation (sauf la D). C : défenses. D : os. K : coagulation.</li>
+  </ul>
+
+  <h3>La chimie inorganique</h3>
+  <div class="grid">
+    <div class="card"><h4>Eau</h4><p>⅔ du corps, cerveau 80 %. Transport, thermorégulation, structure.</p></div>
+    <div class="card"><h4>Oxygène</h4><p>21 % de l’air. 98 % transporté lié à l’hémoglobine. Indispensable à la production d’ATP.</p></div>
+  </div>
+  <div class="tw scroll"><table>
+    <tr><th>Minéral</th><th>À retenir</th><th>Sources</th></tr>
+    <tr><td><b>Na⁺</b> sodium</td><td>principal cation <b>extracellulaire</b></td><td>sel, viande, poisson, fruits de mer</td></tr>
+    <tr><td><b>Cl⁻</b> chlore</td><td>anion surtout extracellulaire</td><td>sel, viande, œufs, poisson</td></tr>
+    <tr><td><b>K⁺</b> potassium</td><td>principal cation <b>intracellulaire</b>, contraction musculaire dont le cœur</td><td>banane, épinards, avocat, légumineuses</td></tr>
+    <tr><td><b>Ca²⁺</b> calcium</td><td>constituant des os</td><td>laitages, légumes verts, amandes</td></tr>
+    <tr><td><b>PO₄³⁻</b> phosphore</td><td>os, phospholipides, acides nucléiques, tampon du pH sanguin</td><td>viande, poisson, œufs, laitages</td></tr>
+  </table></div>
+
+  <h3>ADN, ARN et expression des gènes</h3>
+  <div class="tw scroll"><table>
+    <tr><th></th><th>ADN</th><th>ARN</th></tr>
+    <tr><td>Sucre</td><td>désoxyribose</td><td>ribose</td></tr>
+    <tr><td>Structure</td><td>2 chaînes antiparallèles, double hélice</td><td>1 chaîne (monobrin)</td></tr>
+    <tr><td>Bases</td><td>A–T et G–C</td><td>A, <b>U</b> (uracile), G, C</td></tr>
+    <tr><td>Lieu</td><td>noyau</td><td>noyau puis cytoplasme</td></tr>
+  </table></div>
+  <figure>
+    <div class="scroll"><svg viewBox="0 0 720 230" role="img" aria-label="Expression d'un gène : l'ADN est transcrit en ARN dans le noyau, puis l'ARN est traduit en protéine par un ribosome dans le cytoplasme">
+      <defs><marker id="a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+      <rect class="ba" x="10" y="30" width="335" height="150" rx="14" style="opacity:.55"/><text x="24" y="52" class="mono" style="fill:var(--accent)">NOYAU</text>
+      <rect class="box" x="355" y="30" width="355" height="150" rx="14"/><text x="369" y="52" class="mono">CYTOPLASME</text>
+      <!-- ADN -->
+      <g class="lna"><path d="M26 95H132"/><path d="M26 115H132"/></g><g class="ln" style="stroke:var(--muted);stroke-width:1.3"><path d="M38 95V115M54 95V115M70 95V115M86 95V115M102 95V115M118 95V115"/></g>
+      <text x="79" y="140" text-anchor="middle">ADN</text><text x="79" y="156" text-anchor="middle" class="m">un gène</text>
+      <path class="ln" marker-end="url(#a4)" d="M142 105H196"/><text x="169" y="92" text-anchor="middle" class="m">transcription</text>
+      <path class="lnb" d="M206 105q10 -12 20 0t20 0t20 0t20 0t20 0"/><text x="266" y="140" text-anchor="middle">ARN</text><text x="266" y="156" text-anchor="middle" class="m">monobrin, U</text>
+      <path class="ln" marker-end="url(#a4)" d="M326 105H410"/><text x="368" y="92" text-anchor="middle" class="m sm">sort par un pore</text>
+      <!-- ribosome -->
+      <ellipse class="bc" cx="440" cy="108" rx="28" ry="12"/><ellipse class="bc" cx="440" cy="94" rx="20" ry="9"/><text x="440" y="140" text-anchor="middle">Ribosome</text><text x="440" y="156" text-anchor="middle" class="m">lit l’ARN</text>
+      <path class="ln" marker-end="url(#a4)" d="M482 105H530"/><text x="506" y="92" text-anchor="middle" class="m">traduction</text>
+      <g><circle class="fa" cx="545" cy="105" r="9"/><circle class="fb" cx="565" cy="98" r="9"/><circle class="fc" cx="585" cy="108" r="9"/><circle class="fa" cx="605" cy="98" r="9"/><circle class="fb" cx="625" cy="108" r="9"/><circle class="fc" cx="645" cy="98" r="9"/><circle class="fa" cx="665" cy="108" r="9"/></g>
+      <text x="605" y="140" text-anchor="middle">Protéine</text><text x="605" y="156" text-anchor="middle" class="m">chaîne d’acides aminés</text>
+      <text x="360" y="208" text-anchor="middle">1 triplet de nucléotides = 1 acide aminé</text>
+    </svg></div>
+    <figcaption>ADN → (transcription, noyau) → ARN → (traduction, ribosomes, cytoplasme) → protéine. Le code génétique est universel, non ambigu, redondant.</figcaption>
+  </figure>
+  <p><b>Mutations</b> (modification de la séquence d’ADN) : <b>substitution</b>, <b>insertion</b>, <b>délétion</b>. Il existe des systèmes de réparation, sinon la cellule est détruite par apoptose ou par les cellules de défense.</p>
+</section>
+
+<!-- ============ 3 CELLULE ============ -->
+<section class="ch" id="cellule">
+  <div class="num">Chapitre 3</div>
+  <h2>Biologie cellulaire</h2>
+  <div class="key"><b class="t">Définition</b>La cellule est l’<b>unité fondamentale structurale et fonctionnelle</b> de l’organisme, l’unité de base du vivant.</div>
+
+  <div class="tw scroll"><table>
+    <tr><th></th><th>Procaryote (bactérie)</th><th>Eucaryote (homme)</th></tr>
+    <tr><td>Taille</td><td>1–10 µm</td><td>10–100 µm</td></tr>
+    <tr><td>Noyau</td><td>non</td><td>oui, avec enveloppe nucléaire</td></tr>
+    <tr><td>Génome</td><td>haploïde, 1 chromosome circulaire</td><td>diploïde, 23 paires linéaires</td></tr>
+    <tr><td>Organites</td><td>non</td><td>oui</td></tr>
+    <tr><td>Division</td><td>bipartition</td><td>mitose (méiose pour les cellules sexuelles)</td></tr>
+  </table></div>
+
+  <figure>
+    <div class="scroll"><svg viewBox="0 0 760 430" role="img" aria-label="Cellule eucaryote avec ses organites numérotés et légende">
+      <ellipse class="ba" cx="250" cy="215" rx="230" ry="190" style="stroke-width:3"/>
+      <!-- noyau -->
+      <circle class="box" cx="185" cy="185" r="66" style="stroke:var(--fg)"/><circle cx="185" cy="185" r="60" style="fill:none;stroke:var(--fg);stroke-dasharray:3 4;opacity:.5"/>
+      <circle class="fb" cx="170" cy="178" r="16"/><path class="lna" d="M200 170q14 -14 22 6t-14 22t-30 10"/>
+      <!-- REG -->
+      <g class="box" style="stroke:var(--fg)"><ellipse cx="318" cy="150" rx="42" ry="9"/><ellipse cx="318" cy="168" rx="42" ry="9"/><ellipse cx="318" cy="186" rx="42" ry="9"/></g>
+      <g class="fb"><circle cx="290" cy="141" r="2.5"/><circle cx="308" cy="140" r="2.5"/><circle cx="328" cy="140" r="2.5"/><circle cx="346" cy="142" r="2.5"/><circle cx="294" cy="159" r="2.5"/><circle cx="318" cy="158" r="2.5"/><circle cx="342" cy="159" r="2.5"/></g>
+      <!-- REL -->
+      <g class="lna"><path d="M290 238q15 -12 30 0t30 0t30 0"/><path d="M290 256q15 -12 30 0t30 0t30 0"/></g>
+      <!-- Golgi -->
+      <g class="lnb" style="stroke-width:3"><path d="M318 308Q370 292 422 308"/><path d="M324 322Q370 306 416 322"/><path d="M330 336Q370 320 410 336"/></g>
+      <!-- mito -->
+      <ellipse class="bc" cx="120" cy="318" rx="50" ry="25"/><path class="ln" style="stroke:var(--amber)" d="M82 318l10 -14l8 22l10 -22l8 22l10 -22l8 22l8 -14"/>
+      <!-- lyso -->
+      <circle class="bb" cx="235" cy="345" r="15"/><g class="fb"><circle cx="230" cy="341" r="2.5"/><circle cx="240" cy="348" r="2.5"/><circle cx="231" cy="350" r="2.5"/></g>
+      <!-- centrosome -->
+      <g class="fa" transform="rotate(-20 335 80)"><rect x="318" y="76" width="34" height="8" rx="3"/><rect x="331" y="63" width="8" height="34" rx="3"/></g>
+      <!-- ribosomes libres -->
+      <g class="fb"><circle cx="75" cy="235" r="3.5"/><circle cx="96" cy="252" r="3.5"/><circle cx="70" cy="262" r="3.5"/><circle cx="110" cy="236" r="3.5"/></g>
+      <!-- badges -->
+      <g class="fa"><circle cx="22" cy="215" r="11"/><circle cx="130" cy="130" r="11"/><circle cx="378" cy="168" r="11"/><circle cx="395" cy="247" r="11"/><circle cx="440" cy="322" r="11"/><circle cx="120" cy="358" r="11"/><circle cx="260" cy="368" r="11"/><circle cx="375" cy="86" r="11"/><circle cx="50" cy="248" r="11"/></g>
+      <g class="w" style="font:700 12px var(--body)" text-anchor="middle"><text x="22" y="219">1</text><text x="130" y="134">2</text><text x="378" y="172">3</text><text x="395" y="251">4</text><text x="440" y="326">5</text><text x="120" y="362">6</text><text x="260" y="372">7</text><text x="375" y="90">8</text><text x="50" y="252">9</text></g>
+      <!-- légende -->
+      <g font-size="12.5">
+        <text x="520" y="40">1  Membrane plasmique</text><text x="545" y="55" class="m sm">semi-perméable, échanges</text>
+        <text x="520" y="85">2  Noyau</text><text x="545" y="100" class="m sm">ADN, nucléole, pores nucléaires</text>
+        <text x="520" y="130">3  REG</text><text x="545" y="145" class="m sm">ribosomes, synthèse des protéines</text>
+        <text x="520" y="175">4  REL</text><text x="545" y="190" class="m sm">lipides, détoxification</text>
+        <text x="520" y="220">5  Appareil de Golgi</text><text x="545" y="235" class="m sm">stocke, modifie, adresse</text>
+        <text x="520" y="265">6  Mitochondrie</text><text x="545" y="280" class="m sm">respiration cellulaire, ATP</text>
+        <text x="520" y="310">7  Lysosome</text><text x="545" y="325" class="m sm">digestion, autophagie, pH acide</text>
+        <text x="520" y="355">8  Centrosome</text><text x="545" y="370" class="m sm">2 centrioles, division</text>
+        <text x="520" y="400">9  Ribosomes libres</text><text x="545" y="415" class="m sm">traduction de l’ARN</text>
+      </g>
+    </svg></div>
+    <figcaption>Cellule eucaryote animale. Les ribosomes sont libres dans le cytoplasme ou fixés sur le REG. Le cytosquelette (actine, filaments intermédiaires, microtubules) donne sa forme à la cellule et déplace les organites.</figcaption>
+  </figure>
+  <div class="pit"><b class="t">Mitochondries</b>Elles ont leur propre ADN et sont transmises <b>uniquement par la mère</b>.</div>
+
+  <h3>La membrane plasmique et ses transports</h3>
+  <p>Faite de lipides, protéines et glucides, elle est dynamique et semi-perméable. <b>Na⁺ est l’ion extracellulaire</b>, <b>K⁺ l’ion intracellulaire</b>. Ses marqueurs (antigènes) permettent la reconnaissance par le système immunitaire.</p>
+  <figure>
+    <div class="scroll"><svg viewBox="0 0 720 305" role="img" aria-label="Diffusion simple, diffusion facilitée et transport actif à travers la membrane plasmique">
+      <defs><marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ahb" d="M0 0L10 5L0 10z"/></marker></defs>
+      <g class="big" text-anchor="middle" style="font-size:14px"><text x="160" y="22">Diffusion simple</text><text x="400" y="22">Diffusion facilitée</text><text x="640" y="22">Transport actif</text></g>
+      <!-- membranes -->
+      <rect class="ba" x="85" y="125" width="150" height="30" rx="4"/><rect class="ba" x="325" y="125" width="150" height="30" rx="4"/><rect class="ba" x="565" y="125" width="150" height="30" rx="4"/>
+      <!-- canal facilité -->
+      <rect class="bc" x="388" y="115" width="16" height="50" rx="4"/><rect class="bc" x="418" y="115" width="16" height="50" rx="4"/>
+      <!-- pompe -->
+      <rect class="bc" x="615" y="112" width="50" height="56" rx="12"/><text x="640" y="144" text-anchor="middle" style="font-size:12px">pompe</text>
+      <!-- points extra (denses) -->
+      <g class="dot"><circle cx="110" cy="50" r="4"/><circle cx="135" cy="75" r="4"/><circle cx="165" cy="48" r="4"/><circle cx="195" cy="80" r="4"/><circle cx="215" cy="55" r="4"/><circle cx="150" cy="100" r="4"/><circle cx="105" cy="95" r="4"/><circle cx="205" cy="105" r="4"/>
+        <circle cx="350" cy="50" r="4"/><circle cx="375" cy="75" r="4"/><circle cx="405" cy="48" r="4"/><circle cx="435" cy="80" r="4"/><circle cx="455" cy="55" r="4"/><circle cx="390" cy="100" r="4"/><circle cx="345" cy="95" r="4"/><circle cx="445" cy="105" r="4"/>
+        <circle cx="590" cy="50" r="4"/><circle cx="615" cy="75" r="4"/><circle cx="645" cy="48" r="4"/><circle cx="675" cy="80" r="4"/><circle cx="695" cy="55" r="4"/><circle cx="630" cy="100" r="4"/><circle cx="585" cy="95" r="4"/><circle cx="685" cy="105" r="4"/></g>
+      <g class="dot"><circle cx="130" cy="215" r="4"/><circle cx="200" cy="235" r="4"/><circle cx="370" cy="215" r="4"/><circle cx="440" cy="235" r="4"/><circle cx="610" cy="215" r="4"/><circle cx="690" cy="235" r="4"/></g>
+      <!-- flèches -->
+      <path class="lnb" marker-end="url(#a5)" d="M160 90V200"/><path class="lnb" marker-end="url(#a5)" d="M411 80V200"/><path class="lnb" marker-end="url(#a5)" d="M640 205V94"/>
+      <rect class="bc" x="662" y="176" width="48" height="22" rx="11"/><text x="686" y="191" text-anchor="middle" style="font-size:12px">ATP</text>
+      <text x="8" y="60" class="m sm">+ concentré</text><text x="8" y="225" class="m sm">− concentré</text>
+      <text x="160" y="268" text-anchor="middle" class="m">petites molécules : O₂, CO₂, H₂O, urée</text><text x="160" y="284" text-anchor="middle" class="m">selon le gradient, sans énergie</text>
+      <text x="400" y="268" text-anchor="middle" class="m">ions, eau, glucose</text><text x="400" y="284" text-anchor="middle" class="m">protéine membranaire, sans énergie</text>
+      <text x="640" y="268" text-anchor="middle" class="m">pompe Na/K ATPase</text><text x="640" y="284" text-anchor="middle" class="m">contre le gradient, ATP</text>
+    </svg></div>
+    <figcaption>Haut : milieu extracellulaire. Bas : intracellulaire. Les transports passifs vont du plus concentré au moins concentré. Le transport actif s’y oppose et consomme de l’ATP.</figcaption>
+  </figure>
+  <p><b>Grosses particules</b> (transport par déformation de la membrane, avec énergie) : <b>exocytose</b> (des vésicules déversent leur contenu à l’extérieur) et <b>endocytose</b> (la cellule englobe une particule par invagination).</p>
+  <p><b>Communication</b> entre cellules : contact direct (jonctions communicantes, juxtacrine) ou messagers chimiques (hormones, neurotransmetteurs).</p>
+
+  <h3>Cycle cellulaire, mitose et méiose</h3>
+  <figure>
+    <div class="scroll"><svg viewBox="0 0 720 310" role="img" aria-label="Mitose : une cellule donne deux cellules identiques. Méiose : une cellule donne quatre gamètes haploïdes en deux divisions">
+      <defs><marker id="a6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+      <text x="10" y="22" class="mono" style="fill:var(--accent)">MITOSE</text>
+      <circle class="ba" cx="70" cy="75" r="28"/><text x="70" y="80" text-anchor="middle">2n</text>
+      <path class="ln" marker-end="url(#a6)" d="M108 75H180"/><text x="144" y="66" text-anchor="middle" class="m sm">division</text>
+      <circle class="ba" cx="240" cy="50" r="24"/><text x="240" y="55" text-anchor="middle">2n</text><circle class="ba" cx="240" cy="102" r="24"/><text x="240" y="107" text-anchor="middle">2n</text>
+      <text x="290" y="72" class="big" style="font-size:14px">2 cellules identiques</text><text x="290" y="90" class="m">prophase, métaphase, anaphase, télophase</text>
+      <path d="M10 140H710" class="ln" style="stroke:var(--line)"/>
+      <text x="10" y="168" class="mono" style="fill:var(--blood)">MÉIOSE (cellules germinales)</text>
+      <circle class="bb" cx="70" cy="235" r="28"/><text x="70" y="240" text-anchor="middle">2n</text>
+      <path class="ln" marker-end="url(#a6)" d="M108 235H180"/><text x="144" y="226" text-anchor="middle" class="m sm">1ʳᵉ division</text>
+      <circle class="bb" cx="240" cy="210" r="22"/><text x="240" y="215" text-anchor="middle">n</text><circle class="bb" cx="240" cy="260" r="22"/><text x="240" y="265" text-anchor="middle">n</text>
+      <path class="ln" marker-end="url(#a6)" d="M272 235H340"/><text x="306" y="226" text-anchor="middle" class="m sm">2ᵉ division</text>
+      <g class="bb"><circle cx="390" cy="178" r="16"/><circle cx="390" cy="212" r="16"/><circle cx="390" cy="246" r="16"/><circle cx="390" cy="280" r="16"/></g>
+      <g text-anchor="middle"><text x="390" y="183">n</text><text x="390" y="217">n</text><text x="390" y="251">n</text><text x="390" y="285">n</text></g>
+      <text x="430" y="233" class="big" style="font-size:14px">4 gamètes</text><text x="430" y="251" class="m">haploïdes, brassage génétique</text>
+    </svg></div>
+    <figcaption>Mitose : 2n → 2 × 2n. Méiose : 2n → 4 × n (la 1ʳᵉ division réduit le nombre de chromosomes, la 2ᵉ est une mitose classique).</figcaption>
+  </figure>
+  <ul>
+    <li><b>Cycle cellulaire</b> : de la naissance de la cellule à sa division. Interphase puis mitose.</li>
+    <li>Se divisent régulièrement : cellules souches, épithéliales, germinales. Ne se divisent plus : neurones, hépatocytes, lymphocytes (selon le cours).</li>
+    <li><b>Génome humain</b> : 46 chromosomes = 22 paires d’autosomes + 1 paire sexuelle (XX ou XY).</li>
+    <li><b>Mort cellulaire</b> : apoptose (programmée, ex. globule rouge à 120 jours) ou nécrose (accidentelle). <b>Sénescence</b> : vieillissement et arrêt d’activité. Une cellule de peau se renouvelle en 2 à 4 semaines, un neurone mature jamais.</li>
+  </ul>
+</section>
+
+<!-- ============ 4 HEMATOLOGIE ============ -->
+<section class="ch" id="hemato">
+  <div class="num">Chapitre 4</div>
+  <h2>Hématologie</h2>
+
+  <h3>Le sang</h3>
+  <p>Tissu conjonctif liquide qui circule en système clos, légèrement alcalin (pH 7,4). Il représente <b>≈ 8 % de la masse corporelle</b> : environ <b>5 L</b> chez l’adulte de 70 kg, 250 mL chez le nourrisson.</p>
+  <figure>
+    <div class="scroll"><svg viewBox="0 0 720 255" role="img" aria-label="Tube de sang avec le plasma environ 55 pour cent en haut et les éléments figurés environ 45 pour cent en bas">
+      <rect x="40" y="18" width="88" height="215" rx="22" style="fill:none;stroke:var(--fg);stroke-width:2"/>
+      <path class="fp" d="M42 40Q42 20 84 20Q126 20 126 40V135H42Z"/><path class="fb" d="M42 135H126V210Q126 231 84 231Q42 231 42 210Z"/>
+      <path class="ln" d="M128 78H160"/><text x="168" y="70" class="big" style="font-size:14px">Plasma · ≈ 55 %</text><text x="168" y="88" class="m">90 % d’eau · albumine, fibrinogène, immunoglobulines · ions, nutriments, déchets, hormones</text>
+      <path class="ln" d="M128 185H160"/><text x="168" y="168" class="big" style="font-size:14px">Éléments figurés · ≈ 45 %</text>
+      <text x="168" y="188">Globules rouges</text><text x="330" y="188" class="mono">4–6 millions/mm³</text>
+      <text x="168" y="208">Globules blancs</text><text x="330" y="208" class="mono">4 000–10 000/mm³</text>
+      <text x="168" y="228">Plaquettes</text><text x="330" y="228" class="mono">150 000–450 000/mm³</text>
+    </svg></div>
+    <figcaption>Le cours d’hématologie indique 60 % / 40 %, celui des examens 55 % / 45 % : retenez « un peu plus de la moitié de plasma ». Sérum = plasma sans fibrinogène ni facteurs de coagulation.</figcaption>
+  </figure>
+
+  <h3>Hématopoïèse</h3>
+  <figure>
+    <div class="scroll"><svg viewBox="0 0 720 320" role="img" aria-label="Arbre de l'hématopoïèse : cellule souche multipotente, lignée myéloïde et lymphoïde, cellules sanguines">
+      <rect class="bc" x="235" y="10" width="250" height="40" rx="10"/><text x="360" y="35" text-anchor="middle" class="big" style="font-size:14px">Cellule souche multipotente</text>
+      <path class="ln" d="M360 50V68M180 68H560M180 68V92M560 68V92"/>
+      <rect class="ba" x="60" y="92" width="240" height="46" rx="10"/><text x="180" y="112" text-anchor="middle" class="big" style="font-size:14px">Lignée myéloïde</text><text x="180" y="128" text-anchor="middle" class="m">moelle osseuse rouge</text>
+      <rect class="bb" x="470" y="92" width="180" height="46" rx="10"/><text x="560" y="112" text-anchor="middle" class="big" style="font-size:14px">Lignée lymphoïde</text><text x="560" y="128" text-anchor="middle" class="m">organes lymphoïdes</text>
+      <path class="ln" d="M180 138V162M62 162H418M62 162V184M180 162V184M298 162V184M416 162V184M560 138V184"/>
+      <g><rect class="box" x="10" y="184" width="108" height="56" rx="8"/><rect class="box" x="126" y="184" width="108" height="56" rx="8"/><rect class="box" x="244" y="184" width="108" height="56" rx="8"/><rect class="box" x="362" y="184" width="108" height="56" rx="8"/><rect class="box" x="506" y="184" width="108" height="56" rx="8"/></g>
+      <g text-anchor="middle"><text x="64" y="208">Érythrocytes</text><text x="180" y="208">Thrombocytes</text><text x="298" y="208">Polynucléaires</text><text x="416" y="208">Monocytes</text><text x="560" y="208">Lymphocytes</text></g>
+      <g text-anchor="middle" class="m sm"><text x="64" y="226">via réticulocyte</text><text x="180" y="226">via mégacaryocyte</text><text x="298" y="226">via myéloblaste</text><text x="416" y="226">via myéloblaste</text><text x="560" y="226">via lymphoblaste</text></g>
+      <g text-anchor="middle" class="mono"><text x="64" y="262" style="fill:var(--blood)">érythropoïèse</text><text x="180" y="262" style="fill:var(--amber)">thrombopoïèse</text><text x="357" y="262" style="fill:var(--accent)">leucopoïèse</text><text x="560" y="262" style="fill:var(--accent)">leucopoïèse</text></g>
+      <path class="lna" d="M246 270H468" style="display:none"/>
+      <text x="360" y="300" text-anchor="middle" class="m">Hématies et plaquettes sont anucléées.</text>
+    </svg></div>
+    <figcaption>Toutes les cellules sanguines dérivent d’une même cellule souche, capable d’autorenouvellement.</figcaption>
+  </figure>
+
+  <h3>Les trois types de cellules</h3>
+  <div class="grid">
+    <div class="card"><h4><span class="tag t2">GR</span> Globules rouges</h4><p>4–6 millions/mm³. Anucléés, disque biconcave déformable, <b>120 jours</b>. Sans mitochondrie : tout dépend du glucose (1 glucose = 2 ATP). Détruits dans la <b>rate et le foie</b>.</p></div>
+    <div class="card"><h4><span class="tag t1">GB</span> Globules blancs</h4><p>4 000–10 000/mm³. Défense. Polynucléaires : neutrophiles 50–70 %, éosinophiles 1–6 %, basophiles &lt; 1 %. Mononucléaires : lymphocytes 20–40 %, monocytes 2–10 %.</p></div>
+    <div class="card"><h4><span class="tag t3">PLQ</span> Plaquettes</h4><p>150 000–450 000/mm³. Fragments de mégacaryocytes, sans noyau, vie de quelques jours. Thrombopoïétine (foie, reins). Hémostase.</p></div>
+  </div>
+
+  <h3>L’hémoglobine</h3>
+  <figure>
+    <div class="scroll"><svg viewBox="0 0 720 215" role="img" aria-label="L'hémoglobine fixe l'oxygène aux poumons, le libère aux tissus et ramène le CO2">
+      <defs><marker id="a7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ahb" d="M0 0L10 5L0 10z"/></marker><marker id="a8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="aha" d="M0 0L10 5L0 10z"/></marker></defs>
+      <rect class="bb" x="10" y="45" width="190" height="110" rx="14"/><text x="105" y="75" text-anchor="middle" class="big">Poumons</text><text x="105" y="95" text-anchor="middle" class="m">hématose</text><text x="105" y="125" text-anchor="middle" class="m sm">Hb fixe l’O₂</text>
+      <rect class="ba" x="520" y="45" width="190" height="110" rx="14"/><text x="615" y="75" text-anchor="middle" class="big">Tissus</text><text x="615" y="95" text-anchor="middle" class="m">capillaires tissulaires</text><text x="615" y="125" text-anchor="middle" class="m sm">Hb libère l’O₂</text>
+      <path class="lnb" marker-end="url(#a7)" d="M205 80H515"/><text x="360" y="70" text-anchor="middle" style="fill:var(--blood)">O₂ (sang artériel)</text>
+      <path class="lna" marker-end="url(#a8)" d="M515 125H205"/><text x="360" y="148" text-anchor="middle" style="fill:var(--accent)">CO₂ (sang veineux)</text>
+      <text x="360" y="190" text-anchor="middle" class="m">1 Hb = 4 hèmes = 4 atomes de fer = 4 O₂ maximum</text><text x="360" y="20" text-anchor="middle" class="m">Carence en fer : globules rouges plus petits, moins d’Hb</text>
+    </svg></div>
+    <figcaption>L’EPO, hormone rénale, stimule l’érythropoïèse. Dans l’insuffisance rénale chronique, le déficit en EPO provoque une anémie, traitée par EPO en sous-cutané.</figcaption>
+  </figure>
+  <p>Bilirubine : l’hémoglobine dégradée donne la bilirubine, un excès provoque un <b>ictère</b>. Dernier stade avant le GR : le <b>réticulocyte</b>, qui augmente quand il faut régénérer des hématies.</p>
+  <div class="tw scroll"><table>
+    <tr><th>Pathologie</th><th>À retenir</th></tr>
+    <tr><td><b>Anémie</b></td><td>↓ hématies et/ou ↓ Hb : pâleur, fatigue, essoufflement, vertiges</td></tr>
+    <tr><td><b>Polyglobulie</b></td><td>↑ masse de GR : risque de thrombose artérielle, érythrose, céphalées, acouphènes</td></tr>
+    <tr><td><b>Drépanocytose</b></td><td>génétique, GR en faucille : douleurs, anémie</td></tr>
+    <tr><td><b>Thalassémie</b></td><td>génétique, production d’Hb perturbée : anémie chronique, splénomégalie</td></tr>
+    <tr><td><b>Porphyries</b></td><td>anomalie de l’hème, accumulation de porphyrines</td></tr>
+    <tr><td><b>Paludisme</b></td><td><i>Plasmodium</i> (moustique <i>Anopheles</i>), dans les GR : fièvre par crises</td></tr>
+    <tr><td><b>Purpura</b></td><td>sang sous la peau, thrombopénie</td></tr>
+  </table></div>
+
+  <h3>L’hémostase en trois temps</h3>
+  <p>Ensemble des mécanismes qui maintiennent le sang <b>fluide</b> dans les vaisseaux : arrêter une hémorragie et empêcher les thromboses. Équilibre entre coagulation et fibrinolyse. Acteurs : cellules endothéliales, plaquettes, protéines plasmatiques.</p>
+  <figure>
+    <div class="scroll"><svg viewBox="0 0 720 385" role="img" aria-label="Les trois temps de l'hémostase : hémostase primaire en cinq étapes, coagulation, fibrinolyse">
+      <defs><marker id="a9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+      <rect class="bb" x="8" y="8" width="232" height="44" rx="10"/><text x="124" y="27" text-anchor="middle" class="big" style="font-size:14px">① Hémostase primaire</text><text x="124" y="43" text-anchor="middle" class="m sm">3 à 5 min · clou plaquettaire</text>
+      <rect class="bc" x="272" y="8" width="176" height="44" rx="10"/><text x="360" y="27" text-anchor="middle" class="big" style="font-size:14px">② Coagulation</text><text x="360" y="43" text-anchor="middle" class="m sm">hémostase secondaire</text>
+      <rect class="ba" x="480" y="8" width="232" height="44" rx="10"/><text x="596" y="27" text-anchor="middle" class="big" style="font-size:14px">③ Fibrinolyse</text><text x="596" y="43" text-anchor="middle" class="m sm">réparation, dissolution du caillot</text>
+      <g class="ln" marker-end="url(#a9)"><path d="M240 30H270"/><path d="M448 30H478"/></g>
+      <g class="box"><rect x="8" y="70" width="232" height="38" rx="8"/><rect x="8" y="120" width="232" height="38" rx="8"/><rect x="8" y="170" width="232" height="38" rx="8"/><rect x="8" y="220" width="232" height="38" rx="8"/><rect x="8" y="270" width="232" height="38" rx="8" style="stroke:var(--blood)"/></g>
+      <g font-size="12.5"><text x="20" y="94">1  Vasoconstriction</text><text x="20" y="144">2  Adhésion (facteur de Willebrand)</text><text x="20" y="194">3  Sécrétion plaquettaire</text><text x="20" y="244">4  Agrégation (fibrinogène)</text><text x="20" y="294">5  Clou plaquettaire (thrombus blanc)</text></g>
+      <g class="ln" marker-end="url(#a9)"><path d="M124 108V118"/><path d="M124 158V168"/><path d="M124 208V218"/><path d="M124 258V268"/></g>
+      <g class="box"><rect x="272" y="70" width="176" height="52" rx="8"/><rect x="272" y="134" width="176" height="52" rx="8"/><rect x="272" y="198" width="176" height="52" rx="8"/><rect x="272" y="262" width="176" height="46" rx="8" style="stroke:var(--blood)"/></g>
+      <g text-anchor="middle" font-size="12.5"><text x="360" y="92">Cascade de facteurs</text><text x="360" y="109" class="m sm">13 facteurs (I à XIII)</text>
+        <text x="360" y="156">Ca²⁺ · vitamine K</text><text x="360" y="173" class="m sm">+ facteurs plaquettaires</text>
+        <text x="360" y="220">Réseau de fibrine</text><text x="360" y="237" class="m sm">piège les globules rouges</text>
+        <text x="360" y="289">Caillot (thrombus rouge)</text></g>
+      <g class="ln" marker-end="url(#a9)"><path d="M360 122V132"/><path d="M360 186V196"/><path d="M360 250V260"/></g>
+      <g class="box"><rect x="480" y="70" width="232" height="38" rx="8"/><rect x="480" y="120" width="232" height="38" rx="8"/><rect x="480" y="170" width="232" height="38" rx="8"/><rect x="480" y="220" width="232" height="38" rx="8" style="stroke:var(--accent)"/></g>
+      <g font-size="12.5"><text x="492" y="94">Plasminogène</text><text x="492" y="144">tPA (cellules endothéliales) → plasmine</text><text x="492" y="194">La plasmine dégrade la fibrine</text><text x="492" y="244">Produits de dégradation : D-dimères</text></g>
+      <g class="ln" marker-end="url(#a9)"><path d="M596 108V118"/><path d="M596 158V168"/><path d="M596 208V218"/></g>
+      <g class="m sm"><text x="124" y="334" text-anchor="middle">Examens : temps de saignement, plaquettes</text><text x="124" y="350" text-anchor="middle">Aspirine : antiagrégant</text>
+        <text x="360" y="334" text-anchor="middle">TP/INR (AVK) · TCA (héparine)</text><text x="360" y="350" text-anchor="middle">Anti-Xa (HBPM, AOD)</text>
+        <text x="596" y="334" text-anchor="middle">Actilyse® (altéplase) : AVC, IDM, EP</text><text x="596" y="350" text-anchor="middle">D-dimères : maladie thromboembolique</text></g>
+    </svg></div>
+    <figcaption>L’hémostase primaire suffit seule pour les petits vaisseaux. La coagulation consolide le thrombus blanc avec de la fibrine. La fibrinolyse dissout ensuite le caillot.</figcaption>
+  </figure>
+  <p>Les facteurs de coagulation sont synthétisés par le <b>foie</b> : une insuffisance hépatique donne des hémorragies. La <b>vitamine K</b> (20 % alimentation, 80 % flore intestinale, pas de stockage) est indispensable : les AVK l’inhibent. <b>Maladie de Willebrand</b> : déficit du facteur vWF. <b>Hémophilie</b> : déficit en facteur VIII, donc pas de fibrine, donc hémorragie qui se poursuit.</p>
+
+  <h3>Cascade de coagulation</h3>
+  <figure>
+    <div class="scroll"><svg viewBox="0 0 720 410" role="img" aria-label="Cascade de coagulation : deux voies aboutissent au facteur Xa, qui transforme la prothrombine en thrombine, qui transforme le fibrinogène en fibrine puis en caillot">
+      <defs><marker id="b1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0 0L10 5L0 10z"/></marker><marker id="b2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ahb" d="M0 0L10 5L0 10z"/></marker></defs>
+      <rect class="ba" x="60" y="10" width="250" height="50" rx="10"/><text x="185" y="31" text-anchor="middle" class="big" style="font-size:14px">Voie endogène</text><text x="185" y="48" text-anchor="middle" class="m sm">intrinsèque · cellulaire</text>
+      <rect class="ba" x="410" y="10" width="250" height="50" rx="10"/><text x="535" y="31" text-anchor="middle" class="big" style="font-size:14px">Voie exogène</text><text x="535" y="48" text-anchor="middle" class="m sm">extrinsèque · tissulaire</text>
+      <path class="ln" d="M185 60V84H360M535 60V84H360"/><path class="ln" marker-end="url(#b1)" d="M360 84V104"/>
+      <rect class="bc" x="235" y="106" width="250" height="46" rx="10"/><text x="360" y="127" text-anchor="middle" class="big" style="font-size:14px">Facteur X activé : Xa</text><text x="360" y="143" text-anchor="middle" class="m sm">les deux voies convergent</text>
+      <path class="ln" marker-end="url(#b1)" d="M360 152V184"/>
+      <rect class="bc" x="235" y="186" width="250" height="46" rx="10"/><text x="360" y="207" text-anchor="middle" class="big" style="font-size:14px">Prothrombine (II) → THROMBINE</text><text x="360" y="223" text-anchor="middle" class="m sm">présente dans le plasma</text>
+      <path class="ln" marker-end="url(#b1)" d="M360 232V264"/>
+      <rect class="bc" x="235" y="266" width="250" height="46" rx="10"/><text x="360" y="287" text-anchor="middle" class="big" style="font-size:14px">Fibrinogène → FIBRINE</text><text x="360" y="303" text-anchor="middle" class="m sm">soluble → insoluble</text>
+      <path class="ln" marker-end="url(#b1)" d="M360 312V344"/>
+      <rect class="bb" x="260" y="346" width="200" height="46" rx="10"/><text x="360" y="375" text-anchor="middle" class="big">CAILLOT</text>
+      <!-- inhibiteur -->
+      <rect class="box" x="535" y="190" width="170" height="64" rx="10" style="stroke:var(--blood)"/><text x="620" y="212" text-anchor="middle" style="fill:var(--blood)">Antithrombine</text><text x="620" y="229" text-anchor="middle" class="m sm">activée par l’héparine</text><text x="620" y="244" text-anchor="middle" class="m sm">bloque thrombine et Xa</text>
+      <path class="lnb dash" marker-end="url(#b2)" d="M535 215H490"/><path class="lnb dash" marker-end="url(#b2)" d="M620 190V129H490"/>
+      <!-- notes gauche -->
+      <g class="m sm"><text x="10" y="140">Facteur VIII : catalyseur de</text><text x="10" y="155">l’activation de X.</text><text x="10" y="170">Absent = hémophilie</text>
+        <text x="10" y="216">Examens :</text><text x="10" y="232" class="mono" style="fill:var(--accent)">AVK → TP / INR</text><text x="10" y="248" class="mono" style="fill:var(--accent)">HNF → TCA</text><text x="10" y="264" class="mono" style="fill:var(--accent)">HBPM, AOD → anti-Xa</text></g>
+    </svg></div>
+    <figcaption>Le schéma est une vidéo dans le cours. Cette version suit le texte du cours : deux voies, facteur Xa, thrombine, fibrine, caillot. L’association de chaque voie avec un examen précis n’est pas détaillée dans le cours.</figcaption>
+  </figure>
+
+  <h3>Les groupes sanguins</h3>
+  <p>Définis par des <b>glycoprotéines (antigènes)</b> à la surface des globules rouges. Deux systèmes principaux : <b>ABO</b> et <b>Rhésus</b> (36 systèmes connus). Le groupe se détermine par <b>agglutination</b> entre antigènes et anticorps : aucune agglutination, c’est le groupe O.</p>
+  <figure>
+    <div class="scroll"><svg viewBox="0 0 720 300" role="img" aria-label="Compatibilité transfusionnelle : O donne à A, B et AB ; A et B donnent à AB">
+      <defs><marker id="b3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+      <g class="ln" marker-end="url(#b3)" style="stroke-width:2.2"><path d="M338 66L246 126"/><path d="M382 66L474 126"/><path d="M360 82V214"/><path d="M246 172L338 232"/><path d="M474 172L382 232"/></g>
+      <g><circle class="fb" cx="360" cy="48" r="34"/><circle class="fb" cx="220" cy="150" r="34"/><circle class="fb" cx="500" cy="150" r="34"/><circle class="fb" cx="360" cy="250" r="34"/></g>
+      <g class="w big" text-anchor="middle" style="font-size:22px"><text x="360" y="56">O</text><text x="220" y="158">A</text><text x="500" y="158">B</text><text x="360" y="258">AB</text></g>
+      <g font-size="12.5"><text x="408" y="44">aucun antigène</text><text x="408" y="60" class="m sm">anti-A et anti-B</text>
+        <text x="176" y="146" text-anchor="end">antigène A</text><text x="176" y="162" text-anchor="end" class="m sm">anticorps anti-B</text>
+        <text x="544" y="146">antigène B</text><text x="544" y="162" class="m sm">anticorps anti-A</text>
+        <text x="408" y="246">antigènes A et B</text><text x="408" y="262" class="m sm">aucun anticorps</text></g>
+      <text x="10" y="290" class="m sm">flèche = « peut donner des globules rouges à »</text>
+    </svg></div>
+    <figcaption>Schéma du cours. O est donneur universel (pas d’antigène), AB receveur universel. Un receveur A reçoit de A et O, un receveur B de B et O, un receveur O uniquement de O.</figcaption>
+  </figure>
+  <div class="care"><b class="t">Rhésus</b>Antigène D sur le globule rouge. Rh+ = avec D, Rh− = sans. Pas d’anticorps naturels. Si du sang Rh+ est transfusé à une personne Rh−, elle fabrique des <b>anticorps anti-D</b> (immuns) : accident transfusionnel lors d’une nouvelle exposition (hémolyse brutale et massive). Idem mère Rh− et enfant Rh+. <b>On peut transfuser du Rh− à un Rh+, jamais l’inverse.</b></div>
+</section>
+
+<!-- ============ 5 EXAMENS ============ -->
+<section class="ch" id="examens">
+  <div class="num">Chapitre 5</div>
+  <h2>Les examens biologiques</h2>
+  <div class="care"><b class="t">Avant chaque prélèvement</b><b>Consentement</b> du patient (loi Kouchner du 4 mars 2002). Vérifier l’<b>identité</b> (nom, prénom, date de naissance, attention aux homonymes : identitovigilance) et la <b>prescription</b>. Préparer le matériel et vérifier les tubes (tube oublié : prélèvement à refaire).</div>
+
+  <h3>Tubes et flacons</h3>
+  <div class="chips">
+    <div class="chip"><span class="sw" style="background:#7b4bb5"></span><span><b>Violet (EDTA)</b> : NFS</span></div>
+    <div class="chip"><span class="sw" style="background:#3da35d"></span><span><b>Vert (hépariné)</b> : ionogramme</span></div>
+    <div class="chip"><span class="sw" style="background:#3a6fd0"></span><span><b>Flacon bleu</b> : hémoculture aérobie, en premier</span></div>
+    <div class="chip"><span class="sw" style="background:#7b4bb5"></span><span><b>Flacon violet</b> : hémoculture anaérobie, ensuite</span></div>
+  </div>
+
+  <h3>NFS (hémogramme)</h3>
+  <div class="tw scroll"><table>
+    <tr><th>Paramètre</th><th>Norme</th><th>Intérêt</th></tr>
+    <tr><td>Hématies</td><td class="n">4–6 millions/mm³</td><td>↓ : anémie, hémorragie, maladies inflammatoires, drépanocytose</td></tr>
+    <tr><td>Hémoglobine</td><td class="n">F 12–16 · H 13–17 g/dL</td><td>diagnostic de l’anémie</td></tr>
+    <tr><td>Hématocrite</td><td class="n">F 37–46 · H 40–53 %</td><td>volume des GR dans le sang ; ↑ = sang épais</td></tr>
+    <tr><td>Plaquettes</td><td class="n">150 000–450 000/mm³</td><td>risque hémorragique, thrombocytose, thrombopénie</td></tr>
+    <tr><td>Leucocytes</td><td class="n">4 000–10 000/mm³</td><td>↑ hyperleucocytose (infection) · ↓ leucopénie (virus, lymphome, traitement)</td></tr>
+  </table></div>
+
+  <h3>Ionogramme sanguin (tube vert)</h3>
+  <div class="pit"><b class="t">Précautions</b>Ne pas prélever sur le bras de la perfusion (hémodilution). Garrot posé trop longtemps : hémolyse, <b>potassium faussement élevé</b>, prélèvement à refaire.</div>
+  <div class="tw scroll"><table>
+    <tr><th>Ion</th><th>Norme</th><th>Si ↓</th><th>Si ↑</th></tr>
+    <tr><td><b>Na⁺</b> natrémie</td><td class="n">135–145 mmol/L</td><td>pertes digestives/rénales, hyperhydratation (IC, IR, IH, œdèmes), dilution</td><td>déshydratation (sueur, coup de chaleur, brûlures), surcharge en sodium</td></tr>
+    <tr><td><b>K⁺</b> kaliémie</td><td class="n">3,5–5 mmol/L</td><td>déficit d’apport, pertes, hyperglycémie</td><td>excès d’apport, défaut d’élimination, hémolyse, effort intense</td></tr>
+    <tr><td><b>Cl⁻</b> chlorémie</td><td class="n">100–110 mmol/L</td><td>pertes digestives/rénales, hyperhydratation</td><td>déshydratation, surcharge en sodium</td></tr>
+    <tr><td><b>HCO₃⁻</b></td><td class="n">23–28 mmol/L</td><td>acidose métabolique (diarrhées, acidocétose, choc)</td><td>alcalose métabolique (vomissements), insuffisance respiratoire chronique</td></tr>
+    <tr><td><b>Ca²⁺</b> calcémie</td><td class="n">2,2–2,6 mmol/L</td><td>malabsorption, IR chronique, hypoparathyroïdie</td><td>métastases osseuses, myélome, hyperparathyroïdie, intoxication vit. D</td></tr>
+    <tr><td><b>Mg²⁺</b></td><td class="n">0,7–0,9 mmol/L</td><td>dénutrition, alcool</td><td>insuffisance rénale</td></tr>
+    <tr><td><b>PO₄³⁻</b></td><td class="n">0,8–1,4 mmol/L</td><td colspan="2">bilan de carence, ostéoporose, atteintes osseuses</td></tr>
+  </table></div>
+
+  <h3>Inflammation, foie, rein</h3>
+  <div class="tw scroll"><table>
+    <tr><th>Examen</th><th>Norme</th><th>Intérêt</th></tr>
+    <tr><td><b>VS</b></td><td class="n">&lt; 7 mm (1ʳᵉ h) · &lt; 20 mm (2ᵉ h)</td><td>inflammation ou infection, suivi des maladies chroniques</td></tr>
+    <tr><td><b>CRP</b> (foie)</td><td class="n">&lt; 6 mg/L</td><td>↓ sous antibiotiques = traitement efficace</td></tr>
+    <tr><td><b>ASAT / ALAT</b></td><td class="n">5–50 UI/L</td><td>« santé du foie » ; ↑ lésion (foie, cœur, rein, muscle)</td></tr>
+    <tr><td><b>PAL</b></td><td class="n">5–140 UI/L</td><td>cholestase, obstruction biliaire, hépatites</td></tr>
+    <tr><td><b>Gamma GT</b></td><td class="n">&lt; 55 UI/L</td><td>nécrose cellulaire, cirrhose, alcoolisme chronique (80 %)</td></tr>
+    <tr><td><b>Bilirubine</b></td><td class="n">totale &lt; 20 · libre &lt; 17 · conjuguée &lt; 4 µmol/L</td><td>cirrhose, hépatite, hémolyse, ictère</td></tr>
+    <tr><td><b>Urée</b></td><td class="n">2,5–9 mmol/L</td><td>↑ : insuffisance rénale</td></tr>
+    <tr><td><b>Créatinine</b></td><td class="n">H 70–110 · F 60–100 µmol/L</td><td>insuffisance rénale ; effets secondaires de traitements</td></tr>
+    <tr><td><b>Clairance de la créatinine</b></td><td>—</td><td>filtration du rein, sévérité d’une insuffisance rénale</td></tr>
+  </table></div>
+
+  <h3>Glycémie, cœur, lipides, thyroïde, fer</h3>
+  <div class="tw scroll"><table>
+    <tr><th>Examen</th><th>Norme</th><th>Intérêt</th></tr>
+    <tr><td><b>Glycémie</b> (à jeun 12 h)</td><td class="n">0,70–1,10 g/L</td><td>diabète ; capillaire = rapide mais moins précise</td></tr>
+    <tr><td><b>HbA1c</b></td><td class="n">sain 4,5–6 % · diabétique &lt; 7 %</td><td>équilibre des 3 derniers mois (GR : 120 j)</td></tr>
+    <tr><td><b>Troponine</b></td><td class="n">proche de 0</td><td>infarctus (douleur thoracique), nécrose du myocarde, myocardite</td></tr>
+    <tr><td><b>CPK</b></td><td class="n">20–171 UI/L</td><td>cœur, muscles striés, cerveau</td></tr>
+    <tr><td><b>BNP / NT-proBNP</b></td><td class="n">&lt; 125 pg/mL (&lt; 75 ans)</td><td>insuffisance cardiaque</td></tr>
+    <tr><td><b>Cholestérol</b></td><td>total, LDL, HDL</td><td>LDL « mauvais » (foie → tissus, athérogène) · HDL « bon » (tissus → foie)</td></tr>
+    <tr><td><b>Triglycérides</b></td><td>—</td><td>risque athérogène et thrombogène</td></tr>
+    <tr><td><b>TSH</b></td><td>selon le labo</td><td>↑ : thyroïde insuffisante · ↓ : thyroïde qui produit trop</td></tr>
+    <tr><td><b>Bilan martial</b></td><td>—</td><td>fer, transferrine, ferritine, saturation : carence ou surcharge, anémie</td></tr>
+  </table></div>
+
+  <h3>Hémostase</h3>
+  <div class="tw scroll"><table>
+    <tr><th>Examen</th><th>Norme</th><th>Intérêt</th></tr>
+    <tr><td><b>TCA</b> (TCK)</td><td class="n">30–40 s · ratio 0,8–1,2</td><td>héparine non fractionnée : cible ratio <b>1,5 à 3</b> · ↑ = risque hémorragique</td></tr>
+    <tr><td><b>TP</b></td><td class="n">80–100 %</td><td>AVK, foie, bilan préopératoire</td></tr>
+    <tr><td><b>INR</b></td><td class="n">cible 2–3 sous AVK</td><td><b>INR &gt; 5 : risque hémorragique important</b></td></tr>
+    <tr><td><b>Fibrinogène</b></td><td class="n">2–4 g/L</td><td>troubles de coagulation ; ↑ en inflammation</td></tr>
+    <tr><td><b>D-dimères</b></td><td class="n">&lt; 450 µg/L</td><td>maladie thromboembolique veineuse</td></tr>
+    <tr><td><b>Anti-Xa</b></td><td>selon le labo</td><td>HBPM (Lovenox®, Fraxiparine®, Arixtra®), AOD (Eliquis®, Xarelto®)</td></tr>
+  </table></div>
+
+  <h3>Gaz du sang (ponction artérielle, artère radiale)</h3>
+  <div class="grid">
+    <div class="card"><h4><span class="n">7,35–7,42</span></h4><p>pH</p></div>
+    <div class="card"><h4><span class="n">80–100 mmHg</span></h4><p>PaO₂ · ↓ = hypoxie</p></div>
+    <div class="card"><h4><span class="n">35–45 mmHg</span></h4><p>PaCO₂ · ↑ = hypercapnie</p></div>
+    <div class="card"><h4><span class="n">22–28 mmol/L</span></h4><p>HCO₃⁻</p></div>
+    <div class="card"><h4><span class="n">95–100 %</span></h4><p>SaO₂</p></div>
+  </div>
+  <p>Précautions : installation confortable, soin douloureux (patch anesthésiant), analyse en <b>10 à 15 min</b>, température du patient notée, compression manuelle et pansement semi-compressif.</p>
+
+  <h3>Hémocultures et autres recueils</h3>
+  <ul>
+    <li><b>Hémocultures</b> : fièvre &gt; 38,5 °C ou frissons, asepsie rigoureuse, <b>flacon aérobie avant l’anaérobie</b>. Objectif : identifier le germe et l’antibiogramme.</li>
+    <li><b>ECBU</b> : recueil le plus aseptique possible. Infection urinaire, glycosurie, protéinurie, albuminurie.</li>
+    <li><b>Protéinurie des 24 h</b> : pathologie rénale, pré-éclampsie.</li>
+    <li><b>Coproculture</b> : <i>Clostridioides difficile</i> (diarrhée nosocomiale) : isolement contact.</li>
+    <li><b>ECBC</b> : infections broncho-pulmonaires, tuberculose (tubage BK).</li>
+    <li><b>Prélèvement ORL</b> : sinusites, <i>Staphylococcus aureus</i> et SARM en préopératoire.</li>
+  </ul>
+
+  <h3>Ce que l’infirmier peut prescrire (arrêté du 26 juin 2026)</h3>
+  <div class="grid">
+    <div class="card"><h4>Santé sexuelle</h4><p>Bêta-HCG (grossesse). Dépistage VIH, hépatites B et C, syphilis, chlamydia, gonocoque.</p></div>
+    <div class="card"><h4>Sevrage tabagique</h4><p>Cholestérol, triglycérides, glycémie à jeun.</p></div>
+    <div class="card"><h4>Examens standards</h4><p>INR renouvelé une fois sous AVK. NFS, plaquettes, ionogramme. ECBU. Glycémie. Créatininémie, albuminurie/créatininurie et HbA1c pour les diabétiques connus, si pas faits depuis 3 mois.</p></div>
+  </div>
+</section>
+
+<!-- ============ 6 REVISION ============ -->
+<section class="ch" id="revision">
+  <div class="num">Chapitre 6</div>
+  <h2>Réviser</h2>
+
+  <h3>Qui surveille quoi ?</h3>
+  <div class="grid">
+    <div class="card"><h4>Traitements</h4><p>AVK → TP / INR · héparine non fractionnée → TCA · HBPM et AOD → anti-Xa · aspirine → antiagrégant.</p></div>
+    <div class="card"><h4>Organes</h4><p>Diabète → glycémie, HbA1c · infarctus → troponine · insuffisance cardiaque → BNP · rein → urée, créatinine · foie → transaminases, GGT, PAL, bilirubine.</p></div>
+    <div class="card"><h4>Signaux</h4><p>Inflammation → CRP, VS, fibrinogène · thrombose → D-dimères · anémie → Hb, ferritine, bilan martial, réticulocytes.</p></div>
+  </div>
+
+  <h3>Pièges classiques</h3>
+  <ul>
+    <li>Osmose (eau, vers le plus concentré) ≠ diffusion (soluté, vers le moins concentré).</li>
+    <li>Plasma ≠ sérum. Thrombus blanc (plaquettes) ≠ thrombus rouge (fibrine et GR).</li>
+    <li>ADN : thymine, double brin. ARN : uracile, simple brin. Transcription (noyau) ≠ traduction (cytoplasme).</li>
+    <li>Mitose : 2 cellules identiques. Méiose : 4 gamètes haploïdes.</li>
+    <li>Na⁺ extracellulaire, K⁺ intracellulaire. Apoptose programmée, nécrose accidentelle.</li>
+    <li>Rh− peut donner à Rh+, pas l’inverse. Hémoculture : aérobie en premier.</li>
+  </ul>
+
+  <h3>Questions types</h3>
+  <details><summary>Définir l’homéostasie.</summary><p>Maintien de la stabilité du milieu intérieur malgré les variations internes et externes (capteur, centre intégrateur, effecteur).</p></details>
+  <details><summary>Que devient un globule rouge dans un plasma hypotonique ?</summary><p>L’eau entre par osmose, la cellule gonfle, risque de lyse.</p></details>
+  <details><summary>Pourquoi la fréquence cardiaque augmente chez un patient déshydraté ?</summary><p>Mécanisme de compensation : maintenir l’apport sanguin aux organes malgré la baisse du volume circulant.</p></details>
+  <details><summary>Différence entre les trois transports membranaires ?</summary><p>Diffusion simple et facilitée : selon le gradient, sans énergie (la seconde avec une protéine). Transport actif : contre le gradient, avec protéine et ATP.</p></details>
+  <details><summary>Décrire l’expression d’un gène.</summary><p>ADN → transcription (noyau) → ARN → traduction (ribosome, cytoplasme) → protéine. Un triplet code un acide aminé.</p></details>
+  <details><summary>Lien entre alimentation et cicatrisation ?</summary><p>Les nutriments fournissent l’énergie (ATP) et les matériaux (acides aminés, vitamines, minéraux) dont les cellules ont besoin pour fonctionner, se multiplier et réparer les tissus.</p></details>
+  <details><summary>Quels signes d’anémie, et quels examens ?</summary><p>Pâleur, fatigue, essoufflement, vertiges. NFS (hémoglobine, hématies), bilan martial, réticulocytes.</p></details>
+  <details><summary>Décrire les 3 temps de l’hémostase.</summary><p>Primaire : vasoconstriction, adhésion (Willebrand), sécrétion, agrégation, clou plaquettaire. Secondaire : cascade, fibrine, caillot. Fibrinolyse : plasminogène, plasmine, dégradation de la fibrine.</p></details>
+  <details><summary>Quel examen surveille un traitement par AVK ? par héparine ?</summary><p>AVK : TP et INR (cible 2 à 3). Héparine non fractionnée : TCA. HBPM et AOD : anti-Xa.</p></details>
+  <details><summary>Patient AB− : quels globules rouges peut-il recevoir ?</summary><p>AB−, A−, B− et O− (Rh− uniquement, tous groupes ABO).</p></details>
+  <details><summary>INR à 6 sous AVK ?</summary><p>Surdosage, risque hémorragique important (INR &gt; 5) : prévenir le médecin, surveiller les saignements.</p></details>
+  <details><summary>HbA1c à 9 % ?</summary><p>Diabète déséquilibré sur les 3 derniers mois.</p></details>
+  <details><summary>Na⁺ 128 mmol/L et K⁺ 5,8 mmol/L avec garrot long ?</summary><p>Hyponatrémie. Hyperkaliémie peut-être fausse (hémolyse) : refaire le prélèvement.</p></details>
+</section>
+
+<footer>Réalisé à partir des six supports de l’UE B1 S1 (I. Bryssine, S. Stoessel, Croix-Rouge compétence). Les valeurs de laboratoire varient selon les laboratoires : se référer aux normes imprimées sur les résultats. Les réponses signalées comme déduites (exercice vivant / non vivant, cas de Kazumi) ne figurent pas dans les supports.</footer>
+</div>

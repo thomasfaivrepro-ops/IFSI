@@ -10,6 +10,7 @@ Sources : CM Homéostasie, Biologie cellulaire, Fondamentaux en biochimie, Héma
 ---
 
 ## SOMMAIRE
+0. Cours d'introduction (de la chimie à la cellule)
 1. Fil rouge : niveaux d'organisation
 2. Homéostasie et milieu intérieur
 3. Biochimie (organique, inorganique, acides nucléiques)
@@ -19,6 +20,39 @@ Sources : CM Homéostasie, Biologie cellulaire, Fondamentaux en biochimie, Héma
 7. Fiches de synthèse + tableau des normes
 8. Questions types d'évaluation
 9. Schémas
+
+---
+
+# 0. COURS D'INTRODUCTION : DE LA CHIMIE À LA CELLULE
+
+**Question du cours** : comment passe-t-on de quelques notions de chimie à la compréhension d'une cellule humaine ?
+
+## 0.1 Être vivant 🔑
+Trois critères : **vie autonome**, **reproduction**, **information génétique et métabolisme**. Vie apparue il y a 3,5 à 4 milliards d'années ; ancêtre commun **LUCA**. Procaryotes (sans noyau, bactéries) et eucaryotes (avec noyau).
+Exercice du cours (réponse déduite des 3 critères, à vérifier avec le formateur) : vivants = nénuphar, globule blanc, staphylocoque doré, levures, escargot ; non vivants = carbone, eau, terre, huile, éclairs, pain cuit, ongles ; virus (VIH, Covid) = pas de vie autonome.
+
+## 0.2 Chimie
+- **Atome** : unité de base, neutre (noyau +, électrons −). Perd/gagne un électron = **ion** : **cation** (électron en moins, Na⁺, K⁺), **anion** (électron en plus, Cl⁻).
+- **Molécules** : NaCl, H₂O (2 H + 1 O), CO₂ (1 C + 2 O). Organiques (avec C) / inorganiques (sans C).
+- **Solvant** (dissout, l'eau) / **soluté** (dissous) / **solution aqueuse**. Solutions alcooliques (Bétadine® alcoolique), huileuses (Clopixol®).
+- **Macromolécules** : assemblages complexes, jamais au hasard.
+- **pH** : 0 à 14 ; < 7 acide (vinaigre) ; 7 neutre (eau) ; > 7 basique (soude, ammoniac). Sang 7,35-7,45 ; estomac 1-3 ; urine 4,5-8.
+- **Métabolisme** = **catabolisme** (dégrade les macromolécules) + **anabolisme** (fabrique de plus grosses molécules), grâce aux **enzymes**.
+- Glucides (glucose, énergie, GR et neurones ++), lipides (20 % du poids, oméga-3 et 6 essentiels), protides (50 % de la matière organique, 20 AA dont 8 essentiels), acides nucléiques (ADN, ARN, ATP).
+
+## 0.3 Biologie
+Cellule = unité de base du vivant. Organites : mitochondries (énergie), Golgi, réticulum endoplasmique, lysosomes (enzymes, pH acide), noyau (« bibliothèque » : ADN), ribosomes (synthèse des protéines, pas des organites). Cytoplasme = cytosol + éléments cellulaires ; cytosquelette = forme. Mitose : 2 cellules identiques (peau : 2 à 4 semaines ; neurone mature : jamais). Apoptose = mort programmée (GR : 120 jours) ; nécrose = mort imprévue.
+
+## 0.4 Histologie : les 4 tissus 🔑
+| Tissu | Fonction | À retenir |
+|---|---|---|
+| **Épithélial** | revêtement (peau, muqueuses) ou glandulaire (sécrétion) | cellules polarisées, renouvellement rapide, innervées, **avascularisées** |
+| **Conjonctif** | soutien, défense, nourricier | lâche, fibreux, adipeux, cartilagineux, **sang** ; cellules résidentes, mobiles, fibres |
+| **Musculaire** | mouvement | myocyte contractile, excitable, plusieurs noyaux ; lisse (involontaire), strié squelettique (volontaire), strié cardiaque (involontaire) |
+| **Nerveux** | influx nerveux | neurones (excitables) + gliocytes (soutien) ; stimuli mécanique, thermique, chimique, électrique, psychologique |
+
+## 0.5 Cas de Kazumi (19 ans)
+Fatigue, règles abondantes, essoufflement, vertiges, pâleur (visage, lèvres, paupières), peu de légumes secs et de viande. Lecture (déduite) : **carence martiale** → ↓ hémoglobine → **anémie**. Examens : NFS, bilan martial. Conseils : lentilles, viande rouge 1 à 2 fois par semaine.
 
 ---
 
